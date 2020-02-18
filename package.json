@@ -1,0 +1,5 @@
+{
+    "_moduleAliases": {
+        "willcore.server": "moduleContainer/willCoreModules.js"
+      }
+}
