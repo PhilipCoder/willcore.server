@@ -9,14 +9,24 @@ Steps:
 const assignable = require("willcore.core/assignable/assignable");
 const serverProxy = require("../proxies/server/serverProxy.js");
 const serviceProxy = require("../proxies/service/serviceProxy.js");
+const moduleLoader = require("../loaders/serviceLoader.js");
+const requestProxy = require("../proxies/request/requestProxy.js");
 
 class serviceAssignable extends assignable {
     constructor() {
         super({ string: 1 }, serverProxy);
+        this.requests = {};
+    }
+
+    registerRequest(name, requestProxyInstance){
+        if (!(requestProxyInstance instanceof requestProxy)) throw "Only request proxies can be registered on a service.";
+        this.requests[name] = requestProxyInstance;
     }
 
     completionResult() {
         let proxyResult = serviceProxy.new(this);
+        this.parentProxy._serverAssignable.registerRequestProxy(this.propertyName,proxyResult);
+        moduleLoader(this.bindedValues.string[0], proxyResult ,this.parentProxy,this.parentProxy._serverAssignable.parentProxy);
         return proxyResult;
     }
 

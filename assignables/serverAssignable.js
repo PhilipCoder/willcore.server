@@ -8,6 +8,7 @@ Steps:
 const assignable = require("willcore.core/assignable/assignable");
 const willCoreProxy = require("willcore.core");
 const serverProxy = require("../proxies/server/serverProxy.js");
+const serviceProxy = require("../proxies/service/serviceProxy.js");
 
 class serverAssignable extends assignable {
     constructor() {
@@ -19,7 +20,12 @@ class serverAssignable extends assignable {
         this.requestProxies = {};
     }
 
+    onRequest(requestInfo){
+
+    }
+
     registerRequestProxy(activationSegment, requestProxy){
+        if (!(requestProxy instanceof serviceProxy)) throw "Only service proxies can be registered on a server.";
         this.requestProxies[activationSegment] = requestProxy;
     }
 

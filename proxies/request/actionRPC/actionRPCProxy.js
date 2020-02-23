@@ -1,10 +1,10 @@
 const actionRPCProxyHandler = require("./actionRPCProxyHandler.js");
-const baseProxy = require("willcore.core/proxies/base/baseProxy.js");
+const requestProxy = require("../requestProxy.js");
 
 /**
  * Proxy class for the main willCore instance.
  */
-class actionRPCProxy extends baseProxy {
+class actionRPCProxy extends requestProxy {
     constructor() {
         super();
     }

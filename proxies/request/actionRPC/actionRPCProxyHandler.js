@@ -1,9 +1,9 @@
-const baseProxyHandler = require("willcore.core/proxies/base/assignableProxyHandler.js");
+const requestProxyHandler = require("../requestProxyHandler.js");
 
-class requestProxyHandler extends baseProxyHandler {
+class actionRPCProxyHandler extends requestProxyHandler {
     constructor() {
       super();
     }
   }
   
-  module.exports = requestProxyHandler;
+  module.exports = actionRPCProxyHandler;

@@ -22,9 +22,21 @@ describe('server-assignable-test', function () {
         coreProxy.testServer.server = 33333;
         
         let server = coreProxy.testServer;
-        server.myService.service = "path";
+        server.myService.service = "/test/mocks/serviceMock.js";
 
         assert(coreProxy.testServer.myService, "Service proxy is  not assigned.");
         assert(coreProxy.testServer.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");
+    });
+
+    
+    it('test-service-registration', async function () {
+        let coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 33333;
+        
+        let server = coreProxy.testServer;
+        server.myService.service = "/test/mocks/serviceMock.js";
+
+        assert(coreProxy.testServer._serverAssignable.requestProxies.myService, "Service proxy is  not assigned.");
+        assert(coreProxy.testServer._serverAssignable.requestProxies.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");
     });
 });

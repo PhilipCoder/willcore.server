@@ -1,10 +1,14 @@
 const assignable = require("willcore.core/assignable/assignable");
-const serverProxy = require("../proxies/server/serverProxy.js");
+const serviceProxy = require("../proxies/service/serviceProxy.js");
+const requestProxy = require("../proxies/request/requestProxy.js");
 
 class requestAssignable extends assignable {
     constructor(bindingConstraints) {
-        super(bindingConstraints, serverProxy);
+        super(bindingConstraints, serviceProxy);
     }
+    completed() {
+    }
+   
 }
 
 module.exports = requestAssignable;
