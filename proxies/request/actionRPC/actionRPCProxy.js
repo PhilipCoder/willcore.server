@@ -14,7 +14,7 @@ class actionRPCProxy extends requestProxy {
      */
     static new(actionRPCAssignable) {
         let result = new Proxy(new actionRPCProxy(), new actionRPCProxyHandler());
-        result._actionRPCAssignable = actionRPCAssignable;
+        result._assignable = actionRPCAssignable;
         return result;
     }
 }

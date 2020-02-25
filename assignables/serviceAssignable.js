@@ -30,6 +30,10 @@ class serviceAssignable extends assignable {
         return proxyResult;
     }
 
+    onRequest(requestInfo){
+
+    }
+
     completed() {
     }
 }

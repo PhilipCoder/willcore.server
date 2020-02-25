@@ -8,6 +8,10 @@ class requestAssignable extends assignable {
     }
     completed() {
     }
+    
+    onRequest(){
+
+    }
    
 }
 

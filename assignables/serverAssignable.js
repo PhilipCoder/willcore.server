@@ -20,8 +20,11 @@ class serverAssignable extends assignable {
         this.requestProxies = {};
     }
 
+    /**
+     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
+     */
     onRequest(requestInfo){
-
+        this.requestProxies[requestInfo.actionPart]._assignable.onRequest(requestInfo);
     }
 
     registerRequestProxy(activationSegment, requestProxy){
