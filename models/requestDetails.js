@@ -28,7 +28,7 @@ class requestDetails {
     set method(value){
         let method = availableMethods[value];
         if (!method) throw `Unsupported HTTP verb ${value}`;
-        this.method = method;
+        this._method = method;
     }
 
     //parameters
@@ -57,13 +57,13 @@ class requestDetails {
     get servicePart() {
         let urlParts = this._url.split("/");
         if (urlParts.length < 2) throw `Invalid URL. URL does not contain a service part: ${this._url}.`
-        return urlParts[0];
+        return urlParts[1];
     }
 
     get actionPart() {
         let urlParts = this._url.split("/");
         if (urlParts.length < 3) throw `Invalid URL. URL does not contain an action part: ${this._url}.`
-        return urlParts[1];
+        return urlParts[2];
     }
 
     _initLocals() {
