@@ -1,9 +1,9 @@
-const requestAssignable = require("./requestAssignable.js");
+const assignable = require("willcore.core/assignable/assignable");
 const actionRPCProxy = require("../proxies/request/actionRPC/actionRPCProxy.js");
 const actionModel = require("../proxies/request/actionModel/actionModelProxy.js");
 const httpVerbs = require("../models/httpVerbs.js");
 
-class actionRPCAssignable extends requestAssignable {
+class actionRPCAssignable extends assignable {
     constructor() {
         super({ function: 1, string: 1 });
         this.interceptors = {
@@ -44,6 +44,12 @@ class actionRPCAssignable extends requestAssignable {
         model.record(false);
 
         return { data: JSON.stringify(model.stateValues), mime: "application/json", status: 200 };
+    }
+
+    
+    completed() {
+        this.serverInfo.name = this.propertyName;
+        this.serverInfo.port = this.bindedValues.number[0];
     }
 }
 
