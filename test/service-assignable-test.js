@@ -17,8 +17,8 @@ describe('service-assignable-test', function () {
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceRPCMock.js";
 
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.getData, "Action proxy is not assigned.");
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData, "Action proxy is not assigned.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
     });
     it('test-run-action', async function () {
         let coreProxy = willCoreProxy.new();
@@ -27,14 +27,14 @@ describe('service-assignable-test', function () {
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMockTestCalled.js";
 
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.getData, "Action proxy is not assigned.");
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
-        assert(!coreProxy.testServer.myService._serviceAssignable.requests.getData._assignable.testCalled, "Action was called, it should not have been.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData, "Action proxy is not assigned.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
+        assert(!coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was called, it should not have been.");
 
         let requestInfo = new requestDetails();
         requestInfo.url = "/myService/getData";
         requestInfo.method = "GET";
-        server._serverAssignable.onRequest(requestInfo);
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.getData._assignable.testCalled, "Action was not called, it should have been.");
+        await server._serverAssignable.onRequest(requestInfo);
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
     });
 });

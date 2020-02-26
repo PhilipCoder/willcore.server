@@ -8,15 +8,6 @@ class requestProxy extends baseProxy {
     constructor() {
         super();
     }
-    // /**
-    //  * Factory method.
-    //  * @type {InstanceType<requestProxyHandler>}
-    //  */
-    // static new(requestAssignable) {
-    //     let result = new Proxy(new requestProxy(), new requestProxyHandler());
-    //     result._requestAssignable = requestAssignable;
-    //     return result;
-    // }
 }
 
 module.exports = requestProxy;

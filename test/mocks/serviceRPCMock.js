@@ -1,5 +1,5 @@
 module.exports =  (service, server, willcore) =>{
-    service.getData.action.get = (model) => {
+    service.getData.action.get = async (model) => {
 
     };
 };

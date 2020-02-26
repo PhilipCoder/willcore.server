@@ -19,9 +19,10 @@ class serviceAssignable extends assignable {
         this.requests = {};
     }
 
-    registerRequest(name, requestProxyInstance){
+    registerRequest(method, name, requestProxyInstance){
         if (!(requestProxyInstance instanceof requestProxy)) throw "Only request proxies can be registered on a service.";
-        this.requests[name] = requestProxyInstance;
+        this.requests[method] = this.requests[method] || {};
+        this.requests[method][name] = requestProxyInstance;
     }
 
     completionResult() {
@@ -34,9 +35,9 @@ class serviceAssignable extends assignable {
      /**
      * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
      */
-    onRequest(requestInfo){
-        let request = this.requests[requestInfo.actionPart];
-        return request._assignable.onRequest(requestInfo);
+    async onRequest(requestInfo){
+        let request = this.requests[requestInfo.method][requestInfo.actionPart];
+        return await request._assignable.onRequest(requestInfo);
     }
 
     completed() {

@@ -23,8 +23,8 @@ class serverAssignable extends assignable {
     /**
      * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
      */
-    onRequest(requestInfo){
-        let requestResult = this.requestProxies[requestInfo.servicePart]._serviceAssignable.onRequest(requestInfo);
+    async onRequest(requestInfo){
+        let requestResult = await this.requestProxies[requestInfo.servicePart]._serviceAssignable.onRequest(requestInfo);
     }
 
     registerRequestProxy(activationSegment, requestProxy){

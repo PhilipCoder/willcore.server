@@ -12,9 +12,14 @@ class actionModelProxy extends baseProxy {
      * Factory method.
      * @type {InstanceType<requestProxyHandler>}
      */
-    static new(actionRPCAssignable) {
-        let result = new Proxy(new actionModelProxy(), new actionModelProxyHandler());
-        result._assignable = actionRPCAssignable;
+    static new(sourceObj) {
+        let proxy = new actionModelProxy();
+        if (sourceObj) {
+            Object.keys(sourceObj).filter(k => !k.startsWith("_")).forEach(key => {
+                proxy[key] = sourceObj[key];
+            });
+        }
+        let result = new Proxy(proxy, new actionModelProxyHandler());
         return result;
     }
 }

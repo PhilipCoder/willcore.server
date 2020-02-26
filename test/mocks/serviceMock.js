@@ -1,3 +1,3 @@
-module.exports =  (service, server, willcore) =>{
+module.exports = (service, server, willcore) =>{
 
 };
