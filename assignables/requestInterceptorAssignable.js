@@ -1,51 +1,26 @@
 const assignable = require("willcore.core/assignable/assignable");
-const actionRPCProxy = require("../proxies/request/actionRPC/actionRPCProxy.js");
-const actionModel = require("../proxies/request/actionModel/actionModelProxy.js");
-const httpVerbs = require("../models/httpVerbs.js");
-
-class actionRPCAssignable extends assignable {
+const requestInterceptorProxy = require("../proxies/request/requestInterceptor/requestInterceptorProxy.js");
+const requestAssignable = require("../proxies/request/requestProxy.js");
+class requestInterceptorAssignable extends assignable {
     constructor() {
-        super({ function: 1, string: 1 });
+        super({ function: 1, string: 1 },requestAssignable);
         this.interceptors = {
-            before: [],
-            after: []
+            before: (proxy)=>{
+                this.parentProxy._assignable.interceptors.before.push(proxy);
+            },
+            after: (proxy)=>{
+                this.parentProxy._assignable.interceptors.after.push(proxy);
+            }
         };
     }
 
     completionResult() {
-        this.verb = this.bindedValues["string"][0].toUpperCase();
-        if (!httpVerbs[this.verb]) throw `Unsupported HTTP verb ${this.verb}.`;
-        let proxyResult = actionRPCProxy.new(this);
-        this.parentProxy._serviceAssignable.registerRequest(this.verb, this.propertyName, proxyResult);
+        this.position = this.bindedValues["string"][0].toLowerCase();
+        if (!interceptors[this.position]) throw `Unsupported interceptor: ${this.position}. Should be either 'before' or 'after'`;
+        let proxyResult = requestInterceptorProxy.new(this);
+        this.interceptors[this.position](proxyResult);
         return proxyResult;
     }
-
-    /**
-    * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
-    */
-    async onRequest(requestInfo) { //Model to be created here and action called
-        let model = actionModel.new(requestInfo);
-        model.record();
-        for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++){
-            let interceptorResult = await this.interceptors.before[beforeIndex](model);
-            if (!interceptorResult){
-                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.errorCode };
-            }
-        }
-
-        await this.requestFunction(model);
-        
-        for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++){
-            let interceptorResult = await this.interceptors.after[afterIndex](model);
-            if (!interceptorResult){
-                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.errorCode };
-            }
-        }
-        model.record(false);
-
-        return { data: JSON.stringify(model.stateValues), mime: "application/json", status: 200 };
-    }
-
     
     completed() {
         this.serverInfo.name = this.propertyName;
@@ -53,4 +28,4 @@ class actionRPCAssignable extends assignable {
     }
 }
 
-module.exports = actionRPCAssignable;
+module.exports = requestInterceptorAssignable;

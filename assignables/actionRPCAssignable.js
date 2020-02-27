@@ -29,7 +29,7 @@ class actionRPCAssignable extends requestAssignable {
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++){
             let interceptorResult = await this.interceptors.before[beforeIndex](model);
             if (!interceptorResult){
-                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.errorCode };
+                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.statusCode };
             }
         }
 
@@ -38,7 +38,7 @@ class actionRPCAssignable extends requestAssignable {
         for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++){
             let interceptorResult = await this.interceptors.after[afterIndex](model);
             if (!interceptorResult){
-                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.errorCode };
+                return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.statusCode };
             }
         }
         model.record(false);

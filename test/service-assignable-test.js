@@ -37,4 +37,21 @@ describe('service-assignable-test', function () {
         await server._serverAssignable.onRequest(requestInfo);
         assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
     });
+    it('test-run-action-block-interceptor', async function () {
+        let coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 33333;
+
+        let server = coreProxy.testServer;
+        server.myService.service = "/test/mocks/interceptorBeforeBlockMock.js";
+
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData, "Action proxy is not assigned.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
+        assert(!coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was called, it should not have been.");
+
+        let requestInfo = new requestDetails();
+        requestInfo.url = "/myService/getData";
+        requestInfo.method = "GET";
+        await server._serverAssignable.onRequest(requestInfo);
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
+    });
 });

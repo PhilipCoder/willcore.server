@@ -1,4 +1,4 @@
-const actionRPCProxyHandler = require("./actionRPCProxyHandler.js");
+const requestInterceptorProxyHandler = require("./requestInterceptorProxyHandler.js");
 const baseProxy = require("willcore.core/proxies/base/baseProxy.js");
 
 /**
@@ -13,7 +13,7 @@ class requestInterceptorProxy extends baseProxy {
      * @type {InstanceType<requestProxyHandler>}
      */
     static new(actionRPCAssignable) {
-        let result = new Proxy(new requestInterceptorProxy(), new actionRPCProxyHandler());
+        let result = new Proxy(new requestInterceptorProxy(), new requestInterceptorProxyHandler());
         result._assignable = actionRPCAssignable;
         return result;
     }
