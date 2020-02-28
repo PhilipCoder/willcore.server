@@ -25,6 +25,7 @@ class serverAssignable extends assignable {
      */
     async onRequest(requestInfo){
         let requestResult = await this.requestProxies[requestInfo.servicePart]._serviceAssignable.onRequest(requestInfo);
+        return requestResult;
     }
 
     registerRequestProxy(activationSegment, requestProxy){

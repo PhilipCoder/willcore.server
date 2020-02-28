@@ -37,7 +37,7 @@ describe('service-assignable-test', function () {
         await server._serverAssignable.onRequest(requestInfo);
         assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
     });
-    it('test-run-action-block-interceptor', async function () {
+    it('test-run-action-block-interceptor', async function () {//should not pass 
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 33333;
 
@@ -51,7 +51,10 @@ describe('service-assignable-test', function () {
         let requestInfo = new requestDetails();
         requestInfo.url = "/myService/getData";
         requestInfo.method = "GET";
-        await server._serverAssignable.onRequest(requestInfo);
-        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
+        let result = await server._serverAssignable.onRequest(requestInfo);
+        assert(!coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testCalled, "Action was called, it should not have been.");
+        assert(coreProxy.testServer.myService._serviceAssignable.requests.GET.getData._assignable.testBlocked, "Interceptor was not called.");
+        assert(result.data === "{\"statusCode\":501,\"error\":\"Unauthorized\"}", "Interceptor was not called.");
+        assert(result.status === 501);
     });
 });
