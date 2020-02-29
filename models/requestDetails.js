@@ -3,6 +3,7 @@ const availableMethods = require("./httpVerbs.js");
 class requestDetails {
     constructor(request) {
         this._initLocals();
+        this.request = request;
     }
 
     //URL
@@ -40,6 +41,7 @@ class requestDetails {
         this._headers = value;
     }
 
+    //body
     get body() {
         return this._body;
     }
@@ -47,16 +49,24 @@ class requestDetails {
         this._body = value;
     }
 
+    //servicePart
     get servicePart() {
         let urlParts = this._url.split("/");
         if (urlParts.length < 2) throw `Invalid URL. URL does not contain a service part: ${this._url}.`
         return urlParts[1];
     }
 
+    //action part
     get actionPart() {
         let urlParts = this._url.split("/");
         if (urlParts.length < 3) throw `Invalid URL. URL does not contain an action part: ${this._url}.`
         return urlParts[2];
+    }
+
+    get fileName(){
+        let fileUrl = this._url.substring(1);
+        fileUrl = fileUrl.substring(fileUrl.indexOf("/"));
+        return fileUrl;
     }
 
     _initLocals() {

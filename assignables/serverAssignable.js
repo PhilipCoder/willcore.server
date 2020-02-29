@@ -9,6 +9,7 @@ const assignable = require("willcore.core/assignable/assignable");
 const willCoreProxy = require("willcore.core");
 const serverProxy = require("../proxies/server/serverProxy.js");
 const serviceProxy = require("../proxies/service/serviceProxy.js");
+const fileServerProxy = require("../proxies/fileServer/fileServerProxy.js");
 
 class serverAssignable extends assignable {
     constructor() {
@@ -24,12 +25,12 @@ class serverAssignable extends assignable {
      * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
      */
     async onRequest(requestInfo){
-        let requestResult = await this.requestProxies[requestInfo.servicePart]._serviceAssignable.onRequest(requestInfo);
+        let requestResult = await this.requestProxies[requestInfo.servicePart]._assignable.onRequest(requestInfo);
         return requestResult;
     }
 
     registerRequestProxy(activationSegment, requestProxy){
-        if (!(requestProxy instanceof serviceProxy)) throw "Only service proxies can be registered on a server.";
+        if (!(requestProxy instanceof serviceProxy || requestProxy instanceof fileServerProxy)) throw "Only service proxies can be registered on a server.";
         this.requestProxies[activationSegment] = requestProxy;
     }
 

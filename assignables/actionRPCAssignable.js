@@ -16,7 +16,7 @@ class actionRPCAssignable extends requestAssignable {
         this.verb = this.bindedValues["string"][0].toUpperCase();
         if (!httpVerbs[this.verb]) throw `Unsupported HTTP verb ${this.verb}.`;
         let proxyResult = actionRPCProxy.new(this);
-        this.parentProxy._serviceAssignable.registerRequest(this.verb, this.propertyName, proxyResult);
+        this.parentProxy._assignable.registerRequest(this.verb, this.propertyName, proxyResult);
         return proxyResult;
     }
 

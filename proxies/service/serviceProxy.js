@@ -14,7 +14,7 @@ class serviceProxy extends baseProxy {
      */
     static new(serviceAssignable) {
         let result = new Proxy(new serviceProxy(), new serviceProxyHandler());
-        result._serviceAssignable = serviceAssignable;
+        result._assignable = serviceAssignable;
         return result;
     }
 }

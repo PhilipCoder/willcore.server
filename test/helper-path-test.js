@@ -10,4 +10,12 @@ describe('helper-path-test', function () {
         assert(pathB === "..\\one\\mocks\\serviceMock.js","Incorrect relative path calculated");
 
     });
+
+    it('path-getFilePath', function () {
+        let directory = pathHelper.getFilePath("/scripts","/bootstrap/scripts/bootstrap.js")
+        assert(directory !== false);
+        let directoryB = pathHelper.getFilePath("/scripts","/../../bootstrap/scripts/bootstrap.js")
+        assert(directoryB === false);
+
+    });
 });
