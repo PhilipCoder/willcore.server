@@ -11,7 +11,8 @@ describe('service-assignable-test', function () {
     });
     it('test-proxy', async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 33333;
+        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceRPCMock.js";
@@ -21,7 +22,8 @@ describe('service-assignable-test', function () {
     });
     it('test-run-action', async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 33333;
+        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMockTestCalled.js";
@@ -38,7 +40,8 @@ describe('service-assignable-test', function () {
     });
     it('test-run-action-block-interceptor', async function () {//should not pass 
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 33333;
+        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/interceptorBeforeBlockMock.js";

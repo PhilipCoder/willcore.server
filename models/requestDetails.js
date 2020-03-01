@@ -1,9 +1,49 @@
 const availableMethods = require("./httpVerbs.js");
+const url = require('url');
+
+function getQueryParams(requestDetails, request) {
+    const queryObject = url.parse(request.url, true).query;
+    for (let key in queryObject) {
+        requestDetails._parameters[key] = isNaN(queryObject[key]) ? queryObject[key] : Number(queryObject[key]);
+    }
+}
+
+function getRequestBody(requestDetails, request) {
+    return new Promise((resolve, reject) => {
+        if (request.method === 'POST' || request.method === 'PUT') {
+            let body = '';
+            request.on('data', chunk => {
+                body += chunk.toString(); 
+            });
+            request.on('end', () => {
+                try{
+                    requestDetails.body = JSON.parse(body);
+                }catch(e){
+                    requestDetails.body = null;
+                }
+                resolve();
+            });
+        }else{
+            resolve();
+        }
+       
+    });
+}
 
 class requestDetails {
-    constructor(request) {
+    constructor() {
         this._initLocals();
-        this.request = request;
+    }
+
+    static async fromRequest(request) {
+        let result = new requestDetails();
+        if (request) {
+            result.request = request;
+            getQueryParams(result, request);
+            await getRequestBody(result, request);
+            result.url = request.url;
+        }
+        return result;
     }
 
     //URL
@@ -19,7 +59,7 @@ class requestDetails {
     get method() {
         return this._method;
     }
-    set method(value){
+    set method(value) {
         let method = availableMethods[value];
         if (!method) throw `Unsupported HTTP verb ${value}`;
         this._method = method;
@@ -29,7 +69,7 @@ class requestDetails {
     get parameters() {
         return this._parameters;
     }
-    set parameters(value){
+    set parameters(value) {
         this._parameters = value;
     }
 
@@ -63,7 +103,7 @@ class requestDetails {
         return urlParts[2];
     }
 
-    get fileName(){
+    get fileName() {
         let fileUrl = this._url.substring(1);
         fileUrl = fileUrl.substring(fileUrl.indexOf("/"));
         return fileUrl;
@@ -75,7 +115,7 @@ class requestDetails {
         /**@type {string} */
         this._method = null;
         /**@type {ArrayLike<Object>} */
-        this._parameters = [];
+        this._parameters = {};
         /**@type {ArrayLike<Object>} */
         this._headers = null;
         /**@type {Object} */
@@ -84,4 +124,3 @@ class requestDetails {
 }
 
 exports.requestDetails = requestDetails;
-exports.requestInstance = new requestDetails();

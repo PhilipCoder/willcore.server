@@ -5,6 +5,7 @@ class serverProxyHandler extends baseProxyHandler {
   constructor() {
     super();
     this.setTraps.unshift(this.assignService);
+    this.getTraps.unshift(this.stopService);
   }
 
   assignService(target, property, value, proxy) {
@@ -13,6 +14,15 @@ class serverProxyHandler extends baseProxyHandler {
       return { value: value, status: true };
     }
     return { value: false, status: false };
+  }
+
+  stopService(target, property, proxy) {
+    if (property === "stop") {
+      return { value: ()=>{
+        proxy._serverAssignable.server.close();
+      }, status: true };
+    }
+    return {status: false };
   }
 
 }
