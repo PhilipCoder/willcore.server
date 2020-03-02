@@ -35,7 +35,7 @@ class serviceAssignable extends assignable {
      /**
      * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
      */
-    async onRequest(requestInfo){
+    async onRequest(requestInfo,request){
         let request = this.requests[requestInfo.method][requestInfo.actionPart];
         return await request._assignable.onRequest(requestInfo);
     }

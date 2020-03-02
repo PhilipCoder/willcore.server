@@ -25,7 +25,7 @@ class fileServerAssignable extends assignable {
     /**
     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
     */
-    async onRequest(requestInfo) { //Model to be created here and action called
+    async onRequest(requestInfo,request) { //Model to be created here and action called
         let fileExtention = file.extname(requestInfo.fileName);
         let mimeType = mimeTypes[fileExtention];
         if (!mimeType) {
@@ -35,7 +35,7 @@ class fileServerAssignable extends assignable {
         let filePath = pathHelper.getFilePath(assignablePath, requestInfo.fileName);
 
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
-            let interceptorResult = await this.interceptors.before[beforeIndex](filePath);
+            let interceptorResult = await this.interceptors.before[beforeIndex](filePath,request);
             if (interceptorResult) {
                 return { data: interceptorResult, mime: model.mimeType, status: model.statusCode };
             }

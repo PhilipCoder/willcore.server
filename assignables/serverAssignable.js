@@ -45,12 +45,12 @@ class serverAssignable extends assignable {
         let that = this;
         this.serverRequestEntry = async function(request, response){
             let requestInfo = await requestDetails.fromRequest(request);
-            let requestResult = await that.onRequest(requestInfo);
+            let requestResult = await that.onRequest(requestInfo,request);
             if (!requestResult){
                 response.writeHead("200");
                 response.end("Bad Request");
             }else{
-                response.writeHead(requestResult.statusCode, { 'Content-Type': requestResult.mime });
+                response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
                 response.end(requestResult.data);
             }
         }

@@ -13,25 +13,25 @@ function getRequestBody(requestDetails, request) {
         if (request.method === 'POST' || request.method === 'PUT') {
             let body = '';
             request.on('data', chunk => {
-                body += chunk.toString(); 
+                body += chunk.toString();
             });
             request.on('end', () => {
-                try{
+                try {
                     requestDetails.body = JSON.parse(body);
-                }catch(e){
+                } catch (e) {
                     requestDetails.body = null;
                 }
                 resolve();
             });
-        }else{
+        } else {
             resolve();
         }
-       
+
     });
 }
 
-function assignHeaders(requestDetails, request){
-    for(let key in request.headers){
+function assignHeaders(requestDetails, request) {
+    for (let key in request.headers) {
         requestDetails._headers[key] = request.headers[key];
     }
 }
@@ -108,7 +108,11 @@ class requestDetails {
     get actionPart() {
         let urlParts = this._url.split("/");
         if (urlParts.length < 3) throw `Invalid URL. URL does not contain an action part: ${this._url}.`
-        return urlParts[2];
+        let result = urlParts[2];
+        if (result.indexOf("?") > 0) {
+            result = result.substring(0, result.indexOf("?"))
+        }
+        return result;
     }
 
     get fileName() {
