@@ -46,8 +46,13 @@ class serverAssignable extends assignable {
         this.serverRequestEntry = async function(request, response){
             let requestInfo = await requestDetails.fromRequest(request);
             let requestResult = await that.onRequest(requestInfo);
-            response.writeHead("200");
-            response.end("Bad Request");
+            if (!requestResult){
+                response.writeHead("200");
+                response.end("Bad Request");
+            }else{
+                response.writeHead(requestResult.statusCode, { 'Content-Type': requestResult.mime });
+                response.end(requestResult.data);
+            }
         }
         this.server = http.createServer(this.serverRequestEntry).listen(this.serverInfo.port);
         let proxyResult = serverProxy.new(this);

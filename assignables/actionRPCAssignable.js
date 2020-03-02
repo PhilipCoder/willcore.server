@@ -23,7 +23,7 @@ class actionRPCAssignable extends requestAssignable {
     /**
     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
     */
-    async onRequest(requestInfo) { //Model to be created here and action called
+    async onRequest(requestInfo) { 
         let model = actionModel.new(requestInfo);
         model.record();
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++){

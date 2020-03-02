@@ -30,6 +30,12 @@ function getRequestBody(requestDetails, request) {
     });
 }
 
+function assignHeaders(requestDetails, request){
+    for(let key in request.headers){
+        requestDetails._headers[key] = request.headers[key];
+    }
+}
+
 class requestDetails {
     constructor() {
         this._initLocals();
@@ -42,6 +48,8 @@ class requestDetails {
             getQueryParams(result, request);
             await getRequestBody(result, request);
             result.url = request.url;
+            result.method = request.method;
+            assignHeaders(result, request);
         }
         return result;
     }
@@ -117,7 +125,7 @@ class requestDetails {
         /**@type {ArrayLike<Object>} */
         this._parameters = {};
         /**@type {ArrayLike<Object>} */
-        this._headers = null;
+        this._headers = {};
         /**@type {Object} */
         this._body = null;
     }

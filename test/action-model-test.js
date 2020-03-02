@@ -59,4 +59,14 @@ describe('models-test', function () {
         }
         await axios.post('http://localhost:8580/demoService/getData', body);
     });
+    it('requestInfo-model-token-test',async function () {
+        let coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 8580;
+        let body = { mydata: "helo world" };
+        coreProxy.testServer._serverAssignable.onRequest = function (requestInfo) {
+            coreProxy.testServer.stop();
+            assert(requestInfo.headers['testheader'] === 'foobar', "Incorrect body value");
+        }
+        await axios.post('http://localhost:8580/demoService/getData', body,{  headers: {'testheader': 'foobar'}});
+    });
 });
