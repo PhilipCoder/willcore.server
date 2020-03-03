@@ -19,7 +19,7 @@ class serviceAssignable extends assignable {
         this.requests = {};
     }
 
-    registerRequest(method, name, requestProxyInstance){
+    registerRequest(method, name, requestProxyInstance) {
         if (!(requestProxyInstance instanceof requestProxy)) throw "Only request proxies can be registered on a service.";
         this.requests[method] = this.requests[method] || {};
         this.requests[method][name] = requestProxyInstance;
@@ -27,17 +27,17 @@ class serviceAssignable extends assignable {
 
     completionResult() {
         let proxyResult = serviceProxy.new(this);
-        this.parentProxy._serverAssignable.registerRequestProxy(this.propertyName,proxyResult);
-        moduleLoader(this.bindedValues.string[0], proxyResult ,this.parentProxy,this.parentProxy._serverAssignable.parentProxy);
+        this.parentProxy._serverAssignable.registerRequestProxy(this.propertyName, proxyResult);
+        moduleLoader(this.bindedValues.string[0], proxyResult, this.parentProxy, this.parentProxy._serverAssignable.parentProxy);
         return proxyResult;
     }
 
-     /**
-     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
-     */
-    async onRequest(requestInfo,request){
-        let request = this.requests[requestInfo.method][requestInfo.actionPart];
-        return await request._assignable.onRequest(requestInfo);
+    /**
+    * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
+    */
+    async onRequest(requestInfo, request, response) {
+        let requestProxy = this.requests[requestInfo.method][requestInfo.actionPart];
+        return await requestProxy._assignable.onRequest(requestInfo, request, response);
     }
 
     completed() {

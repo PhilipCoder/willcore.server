@@ -27,29 +27,29 @@ class serverAssignable extends assignable {
     /**
      * @param {requestDetails} requestInfo 
      */
-    async onRequest(requestInfo){
+    async onRequest(requestInfo, request,response) {
         let requestProxy = this.requestProxies[requestInfo.servicePart];
-        if (!requestProxy){
-            return { data: JSON.stringify({error:"Endpoint not found"}), mime: "application/json", status: 404 };
+        if (!requestProxy) {
+            return { data: JSON.stringify({ error: "Endpoint not found" }), mime: "application/json", status: 404 };
         }
-        let requestResult = await requestProxy._assignable.onRequest(requestInfo);
+        let requestResult = await requestProxy._assignable.onRequest(requestInfo, request,response);
         return requestResult;
     }
 
-    registerRequestProxy(activationSegment, requestProxy){
+    registerRequestProxy(activationSegment, requestProxy) {
         if (!(requestProxy instanceof serviceProxy || requestProxy instanceof fileServerProxy)) throw "Only service proxies can be registered on a server.";
         this.requestProxies[activationSegment] = requestProxy;
     }
 
     completionResult() {
         let that = this;
-        this.serverRequestEntry = async function(request, response){
+        this.serverRequestEntry = async function (request, response) {
             let requestInfo = await requestDetails.fromRequest(request);
-            let requestResult = await that.onRequest(requestInfo,request);
-            if (!requestResult){
+            let requestResult = await that.onRequest(requestInfo, request,response);
+            if (!requestResult) {
                 response.writeHead("200");
                 response.end("Bad Request");
-            }else{
+            } else {
                 response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
                 response.end(requestResult.data);
             }
