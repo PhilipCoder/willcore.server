@@ -40,7 +40,7 @@ describe('server-assignable-test', function () {
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMock.js";
 
-        assert(coreProxy.testServer._serverAssignable.requestProxies.myService, "Service proxy is  not assigned.");
-        assert(coreProxy.testServer._serverAssignable.requestProxies.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");
+        assert(coreProxy.testServer._assignable.requestProxies.myService, "Service proxy is  not assigned.");
+        assert(coreProxy.testServer._assignable.requestProxies.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");
     });
 });

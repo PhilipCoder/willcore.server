@@ -26,7 +26,7 @@ class actionModelProxy extends baseProxy {
                 });
             }
         }
-        let result = new Proxy(proxy, new actionModelProxyHandler());
+        let result = new Proxy(proxy, new actionModelProxyHandler(sourceObj));
         return result;
     }
 }

@@ -1,8 +1,8 @@
-const baseProxyHandler = require("willcore.core/proxies/base/assignableProxyHandler.js");
+const assignableProxyHandler = require("willcore.core/proxies/base/assignableProxyHandler.js");
 
-class requestInterceptorProxyHandler extends baseProxyHandler {
-    constructor() {
-      super();
+class requestInterceptorProxyHandler extends assignableProxyHandler {
+    constructor(assignable) {
+      super(assignable);
     }
   }
   

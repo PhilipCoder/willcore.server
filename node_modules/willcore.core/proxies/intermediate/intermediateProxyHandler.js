@@ -1,8 +1,8 @@
 const baseProxyHandler = require("../base/baseProxyHandler.js");
 
 class intermediateProxyHandler extends baseProxyHandler {
-    constructor(parentProxy,parentProperty) {
-        super();
+    constructor(parentProxy,parentProperty,assignable) {
+        super(assignable);
         this.getTraps = [this.getValue];
         this.setTraps = [this.setValue];
         this.parentProxy = parentProxy;

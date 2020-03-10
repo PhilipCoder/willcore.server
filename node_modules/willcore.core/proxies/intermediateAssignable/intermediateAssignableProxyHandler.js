@@ -3,8 +3,8 @@ const willCoreModules = require("../../moduleContainer/willCoreModules.js");
 const intermediateProxy = require("../intermediate/intermediateProxy.js");
 
 class intermediateAssignableProxyHandler extends baseProxyHandler {
-    constructor(parentProxy, parentProperty) {
-        super();
+    constructor(parentProxy, parentProperty,assignable) {
+        super(assignable);
         this.getTraps = [this.getValue];
         this.setTraps = [this.setValue];
         this.parentProxy = parentProxy;

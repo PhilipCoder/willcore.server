@@ -40,7 +40,7 @@ describe('models-test', function () {
     it('requestInfo-model-parameter-test',async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8580;
-        coreProxy.testServer._serverAssignable.onRequest = async function (requestInfo) {
+        coreProxy.testServer._assignable.onRequest = async function (requestInfo) {
             coreProxy.testServer.stop();
             assert(requestInfo.parameters.id === 12, "Incorrect paramter value");
             assert(requestInfo.parameters.name === 'philip', "Incorrect paramter value");
@@ -53,7 +53,7 @@ describe('models-test', function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8580;
         let body = { mydata: "helo world" };
-        coreProxy.testServer._serverAssignable.onRequest = function (requestInfo) {
+        coreProxy.testServer._assignable.onRequest = function (requestInfo) {
             coreProxy.testServer.stop();
             assert(JSON.stringify(requestInfo.body) === JSON.stringify(body), "Incorrect body value");
         }
@@ -63,7 +63,7 @@ describe('models-test', function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8580;
         let body = { mydata: "helo world" };
-        coreProxy.testServer._serverAssignable.onRequest = function (requestInfo) {
+        coreProxy.testServer._assignable.onRequest = function (requestInfo) {
             coreProxy.testServer.stop();
             assert(requestInfo.headers['testheader'] === 'foobar', "Incorrect body value");
         }

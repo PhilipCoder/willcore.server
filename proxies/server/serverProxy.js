@@ -13,8 +13,7 @@ class serverProxy extends baseProxy {
      * @type {InstanceType<serverProxyHandler>}
      */
     static new(serverAssignable) {
-        let result = new Proxy(new serverProxy(), new serverProxyHandler());
-        result._serverAssignable = serverAssignable;
+        let result = new Proxy(new serverProxy(), new serverProxyHandler(serverAssignable));
         return result;
     }
 }

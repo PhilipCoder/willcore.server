@@ -2,15 +2,15 @@ const baseProxyHandler = require("willcore.core/proxies/base/assignableProxyHand
 const serviceProxy = require("../service/serviceProxy.js");
 
 class serverProxyHandler extends baseProxyHandler {
-  constructor() {
-    super();
+  constructor(assignable) {
+    super(assignable);
     this.setTraps.unshift(this.assignService);
     this.getTraps.unshift(this.stopService);
   }
 
   assignService(target, property, value, proxy) {
     if (value instanceof serviceProxy) {
-      proxy._serverAssignable.registerRequestProxy(property, value);
+      proxy._assignable.registerRequestProxy(property, value);
       return { value: value, status: true };
     }
     return { value: false, status: false };
@@ -19,7 +19,7 @@ class serverProxyHandler extends baseProxyHandler {
   stopService(target, property, proxy) {
     if (property === "stop") {
       return { value: ()=>{
-        proxy._serverAssignable.server.close();
+        proxy._assignable.server.close();
       }, status: true };
     }
     return {status: false };

@@ -1,8 +1,8 @@
 const requestProxyHandler = require("../request/requestProxyHandler.js");
 
 class fileServerProxyHandler extends requestProxyHandler {
-    constructor() {
-      super();
+    constructor(assignable) {
+      super(assignable);
     }
   }
   

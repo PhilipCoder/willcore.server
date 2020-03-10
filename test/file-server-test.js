@@ -28,7 +28,7 @@ describe('file-server-test', function () {
 
         let requestInfo = new requestDetails();
         requestInfo.url = "/javascript/dummyFile.js";
-        let fileResult = await server._serverAssignable.onRequest(requestInfo);
+        let fileResult = await server._assignable.onRequest(requestInfo);
         assert(fileResult.mime === "text/javascript", "File service returned incorrect MIME type.");
         assert(fileResult.status === 200, "File service returned incorrect status code.");
         assert(fileResult.data , "File service did not return a file.");
@@ -44,7 +44,7 @@ describe('file-server-test', function () {
 
         let requestInfo = new requestDetails();
         requestInfo.url = "/javascript/nonExistingFile.js";
-        let fileResult = await server._serverAssignable.onRequest(requestInfo);
+        let fileResult = await server._assignable.onRequest(requestInfo);
         assert(fileResult.mime === "application/json", "File service returned incorrect MIME type.");
         assert(fileResult.status === 404, "File service returned incorrect status code.");
         assert(fileResult.data , "File service did not return a file.");

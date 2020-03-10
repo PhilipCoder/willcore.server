@@ -13,8 +13,7 @@ class serviceProxy extends baseProxy {
      * @type {InstanceType<serverProxyHandler>}
      */
     static new(serviceAssignable) {
-        let result = new Proxy(new serviceProxy(), new serviceProxyHandler());
-        result._assignable = serviceAssignable;
+        let result = new Proxy(new serviceProxy(), new serviceProxyHandler(serviceAssignable));
         return result;
     }
 }

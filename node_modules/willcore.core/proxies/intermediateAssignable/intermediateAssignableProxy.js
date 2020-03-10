@@ -8,8 +8,8 @@ class intermediateAssignableProxy{
     * @param {Proxy} parentProxy 
     * @param {String} parentProperty 
     */
-    static new(parentProxy, parentProperty){
-        return new Proxy(new intermediateAssignableProxy(), new intermediateAssignableProxyHandler(parentProxy,parentProperty));
+    static new(parentProxy, parentProperty,assignable){
+        return new Proxy(new intermediateAssignableProxy(), new intermediateAssignableProxyHandler(parentProxy,parentProperty,assignable));
     }
 }
 

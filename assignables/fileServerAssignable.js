@@ -17,7 +17,7 @@ class fileServerAssignable extends assignable {
 
     completionResult() {
         let proxyResult = fileServerProxy.new(this);
-        this.parentProxy._serverAssignable.registerRequestProxy(this.propertyName, proxyResult);
+        this.parentProxy._assignable.registerRequestProxy(this.propertyName, proxyResult);
 
         return proxyResult;
     }

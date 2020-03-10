@@ -13,8 +13,7 @@ class fileServerProxy extends requestProxy {
      * @type {InstanceType<requestProxyHandler>}
      */
     static new(fileServerAssignable) {
-        let result = new Proxy(new fileServerProxy(), new fileServerProxyHandler());
-        result._assignable = fileServerAssignable;
+        let result = new Proxy(new fileServerProxy(), new fileServerProxyHandler(fileServerAssignable));
         return result;
     }
 }

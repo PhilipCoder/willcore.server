@@ -13,8 +13,7 @@ class requestInterceptorProxy extends baseProxy {
      * @type {InstanceType<requestProxyHandler>}
      */
     static new(actionRPCAssignable) {
-        let result = new Proxy(new requestInterceptorProxy(), new requestInterceptorProxyHandler());
-        result._assignable = actionRPCAssignable;
+        let result = new Proxy(new requestInterceptorProxy(), new requestInterceptorProxyHandler(actionRPCAssignable));
         return result;
     }
 }

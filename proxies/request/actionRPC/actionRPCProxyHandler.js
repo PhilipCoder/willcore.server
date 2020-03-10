@@ -1,8 +1,8 @@
 const requestProxyHandler = require("../requestProxyHandler.js");
 
 class actionRPCProxyHandler extends requestProxyHandler {
-    constructor() {
-      super();
+    constructor(assignable) {
+      super(assignable);
     }
   }
   

@@ -1,8 +1,8 @@
 const baseProxyHandler = require("willcore.core/proxies/base/assignableProxyHandler.js");
 
 class actionModelProxyHandler extends baseProxyHandler {
-  constructor() {
-    super();
+  constructor(assignable) {
+    super(assignable);
     this.changedStateValues = {};
     this.isRecording = false;
 
