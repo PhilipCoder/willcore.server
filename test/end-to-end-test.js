@@ -40,4 +40,31 @@ describe('end-to-end-test', function () {
         assert(result.data === "//hello world", "Wrong file data returned");
         coreProxy.testServer.stop();
     });
+    
+    it('getFileCompressed',async function () {
+        let coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 8580;
+
+        let server = coreProxy.testServer;
+        server.javascript.files = "/test/mocks";
+        server.javascript.compression;
+        let result = await axios.get('http://localhost:8580/javascript/dummyFile.js');
+        assert(result.data === "//hello world", "Wrong file data returned");
+        coreProxy.testServer.stop();
+    });
+    it('getDataRPC-alias-test',async function () {
+        let coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.demoService.service = "/test/mocks/getPostDataRPCAction.js";
+
+        let result = await axios.get('http://localhost:8580/demoService/data?resultCount=12&value=JohnDoe');
+        result = result.data.result;
+        assert(Array.isArray(result), "Result should be array.");
+        assert(result.length === 12, "Result should have 12 items.");
+        let resultPost = await axios.post('http://localhost:8580/demoService/data', {'resultCount':12,value:"JohannDoe"} );
+        resultPost = resultPost.data.result;
+        assert(Array.isArray(resultPost), "Result should be array.");
+        assert(resultPost.length === 24, "Result should have 12 items.");
+        coreProxy.testServer.stop();
+    });
 });

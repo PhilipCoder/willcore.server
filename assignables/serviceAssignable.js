@@ -36,6 +36,9 @@ class serviceAssignable extends assignable {
     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
     */
     async onRequest(requestInfo, request, response) {
+        if (!this.requests[requestInfo.method] || !this.requests[requestInfo.method][requestInfo.actionPart]) {
+            return { data: JSON.stringify({error:"Error: Endpoint not found."}), mime: "application/json", status: 404 };
+        }
         let requestProxy = this.requests[requestInfo.method][requestInfo.actionPart];
         return await requestProxy._assignable.onRequest(requestInfo, request, response);
     }

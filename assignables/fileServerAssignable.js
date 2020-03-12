@@ -44,7 +44,14 @@ class fileServerAssignable extends assignable {
         if (filePath === false || !(await fileHelper.exists(filePath))) {
             return { data: JSON.stringify({ error: "File not found." }), mime: "application/json", status: 404 };
         }
-        return { data: await fileHelper.read(filePath), mime: mimeType, status: 200 };
+        let data = await fileHelper.read(filePath);
+        for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++) {
+            let interceptorResult = await this.interceptors.after[afterIndex](data, request,response);
+            if (!interceptorResult) {
+                return { data: interceptorResult, mime:mimeType, status: model.statusCode };
+            }
+        }
+        return { data:data, mime: mimeType, status: 200 };
     }
 
     completed() {

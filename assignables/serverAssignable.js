@@ -49,7 +49,7 @@ class serverAssignable extends assignable {
             if (!requestResult) {
                 response.writeHead("200");
                 response.end("Bad Request");
-            } else {
+            } else if (!request.ended) {
                 response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
                 response.end(requestResult.data);
             }

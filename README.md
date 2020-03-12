@@ -12,3 +12,12 @@ server.
 All assignables in the server module will be in the wilcore.server module.
 
 Request proxies are activated via the first segment of the url
+
+## Todo:
+
+* Request aliases
+* Rest Action
+* End to end tests
+* ETags
+* Time expiration
+* Compression
