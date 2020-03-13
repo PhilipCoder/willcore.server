@@ -21,3 +21,4 @@ Request proxies are activated via the first segment of the url
 * ETags
 * Time expiration
 * Compression
+* Caching

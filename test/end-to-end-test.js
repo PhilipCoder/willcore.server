@@ -40,18 +40,6 @@ describe('end-to-end-test', function () {
         assert(result.data === "//hello world", "Wrong file data returned");
         coreProxy.testServer.stop();
     });
-    
-    it('getFileCompressed',async function () {
-        let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
-
-        let server = coreProxy.testServer;
-        server.javascript.files = "/test/mocks";
-        server.javascript.compression;
-        let result = await axios.get('http://localhost:8580/javascript/dummyFile.js');
-        assert(result.data === "//hello world", "Wrong file data returned");
-        coreProxy.testServer.stop();
-    });
     it('getDataRPC-alias-test',async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8580;
