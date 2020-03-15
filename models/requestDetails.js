@@ -115,6 +115,17 @@ class requestDetails {
         return result;
     }
 
+    get restParts() {
+        let urlPart = this._url.indexOf("?") > 0 ? this._url.substring(0, this._url.indexOf("?")) : this._url;
+        let urlParts = urlPart.split("/");
+        if (urlParts.length < 3) throw `Invalid URL. URL does not contain an action part: ${this._url}.`
+        let result = [];
+        for (let i = 3; i < urlParts.length; i++) {
+            result.push(urlParts[i]);
+        }
+        return result;
+    }
+
     get fileName() {
         let fileUrl = this._url.substring(1);
         fileUrl = fileUrl.substring(fileUrl.indexOf("/"));
