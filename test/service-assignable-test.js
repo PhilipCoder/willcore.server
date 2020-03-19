@@ -12,7 +12,6 @@ describe('service-assignable-test', function () {
     it('test-proxy', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceRPCMock.js";
@@ -23,7 +22,6 @@ describe('service-assignable-test', function () {
     it('test-run-action', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMockTestCalled.js";
@@ -38,10 +36,9 @@ describe('service-assignable-test', function () {
         await server._assignable.onRequest(requestInfo);
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData._assignable.testCalled, "Action was not called, it should have been.");
     });
-    it('test-run-action-block-interceptor', async function () {//should not pass 
+    it('test-run-action-block-interceptor', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
 
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/interceptorBeforeBlockMock.js";

@@ -13,7 +13,6 @@ describe('server-assignable-test', function () {
     it('test-proxy', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
 
         assert(coreProxy.testServer, "Server proxy is  not assigned.");
         assert(coreProxy.testServer instanceof serverProxy, "Server proxy is not an instance of the serverProxy.");
@@ -22,7 +21,6 @@ describe('server-assignable-test', function () {
     it('test-service', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
         
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMock.js";
@@ -35,7 +33,6 @@ describe('server-assignable-test', function () {
     it('test-service-registration', async function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8080;
-        coreProxy.testServer.stop();
         
         let server = coreProxy.testServer;
         server.myService.service = "/test/mocks/serviceMock.js";

@@ -6,4 +6,6 @@ module.exports = (willCoreModuleInstance) => {
        willCoreModuleInstance.interceptor = () => require("../assignables/requestInterceptorAssignable.js");
        willCoreModuleInstance.alias = () => require("../assignables/requestAliasAssignable.js");
        willCoreModuleInstance.compression = () => require("../assignables/responseCompressionAssignable.js");
+       willCoreModuleInstance.http = () => require("../assignables/serverHTTP.js");
+       willCoreModuleInstance.https = () => require("../assignables/serverHTTPS.js");
 };

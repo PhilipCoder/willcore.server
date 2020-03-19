@@ -42,19 +42,19 @@ class serverAssignable extends assignable {
     }
 
     completionResult() {
-        let that = this;
-        this.serverRequestEntry = async function (request, response) {
-            let requestInfo = await requestDetails.fromRequest(request);
-            let requestResult = await that.onRequest(requestInfo, request,response);
-            if (!requestResult) {
-                response.writeHead("200");
-                response.end("Bad Request");
-            } else if (!request.ended) {
-                response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
-                response.end(requestResult.data);
-            }
-        }
-        this.server = http.createServer(this.serverRequestEntry).listen(this.serverInfo.port);
+        // let that = this;
+        // this.serverRequestEntry = async function (request, response) {
+        //     let requestInfo = await requestDetails.fromRequest(request);
+        //     let requestResult = await that.onRequest(requestInfo, request,response);
+        //     if (!requestResult) {
+        //         response.writeHead("200");
+        //         response.end("Bad Request");
+        //     } else if (!request.ended) {
+        //         response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
+        //         response.end(requestResult.data);
+        //     }
+        // }
+        // this.server = http.createServer(this.serverRequestEntry).listen(this.serverInfo.port);
         let proxyResult = serverProxy.new(this);
         return proxyResult;
     }

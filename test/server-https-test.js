@@ -6,7 +6,7 @@ describe('server-https-test', function () {
         require('module-alias/register');
     });
     it('test-cert',async function () {
-       let certificates = await sslHelper.generateCertificate();
+       //let certificates = await sslHelper.generateCertificate();
 
     });
 });
