@@ -1,5 +1,4 @@
 const assert = require('chai').assert;
-const sslHelper = require("../helpers/sslHelper.js");
 
 describe('server-https-test', function () {
     before(async function () {

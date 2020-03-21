@@ -3,12 +3,11 @@
         "willcore.server": "moduleContainer/willCoreModules.js"
     },
     "dependencies": {
+        "auto.self.sign": "^1.0.1",
         "axios": "^0.19.2",
         "chai": "^4.2.0",
         "mocha": "^7.0.1",
         "module-alias": "^2.2.2",
-        "openssl-nodejs": "^1.0.5",
-        "selfsigned": "^1.10.7",
         "willcore.core": "^1.0.7"
     }
 }

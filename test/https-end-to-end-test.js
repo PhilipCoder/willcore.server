@@ -40,7 +40,7 @@ describe('https-end-to-end-test', function () {
         server.javascript.files = "/test/mocks";
         let result = await axios.get('https://localhost:8580/javascript/dummyFile.js');
         assert(result.data === "//hello world", "Wrong file data returned");
-        //coreProxy.testServer.stop();
+        coreProxy.testServer.stop();
     });
     it('getDataRPC-alias-test',async function () {
         let coreProxy = willCoreProxy.new();

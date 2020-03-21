@@ -2,8 +2,9 @@ const assignable = require("willcore.core/assignable/assignable");
 const https = require('https');
 const requestDetails = require("../models/requestDetails.js").requestDetails;
 const serverProxy = require("../proxies/server/serverProxy.js");
-const sslHelper = require("../helpers/sslHelper.js");
 const fileHelper = require("../helpers/fileHelper.js");
+const autoSelfSign = require("auto.self.sign");
+const pathHelper = require("../helpers/path.js");
 
 class serverHTTPS extends assignable {
     constructor() {
@@ -27,10 +28,12 @@ class serverHTTPS extends assignable {
                     response.end(requestResult.data);
                 }
             }
-            let certificates = await sslHelper.generateCertificate();
+            let config = autoSelfSign.config;
+            config.certificateFolder = pathHelper.getAbsolutePath(__dirname, "/certificates");
+            let certificates = await autoSelfSign.autoSelfSign(config);
             const options = {
-                key: await fileHelper.readFile(certificates.keyPath),
-                cert: await fileHelper.readFile(certificates.certPath)
+                key: certificates.key,
+                cert: certificates.cert
             };
             let server = https.createServer(options, this.serverRequestEntry).listen(serverAssignableInstance.serverInfo.port)
             resolve(server);
