@@ -3,6 +3,7 @@ module.exports = (willCoreModuleInstance) => {
        willCoreModuleInstance.service = () => require("../assignables/serviceAssignable.js");
        willCoreModuleInstance.files = () => require("../assignables/fileServerAssignable.js");
        willCoreModuleInstance.action = () => require("../assignables/actionRPCAssignable.js");
+       willCoreModuleInstance.actionREST = () => require("../assignables/actionRESTAssignable.js");
        willCoreModuleInstance.interceptor = () => require("../assignables/requestInterceptorAssignable.js");
        willCoreModuleInstance.alias = () => require("../assignables/requestAliasAssignable.js");
        willCoreModuleInstance.compression = () => require("../assignables/responseCompressionAssignable.js");

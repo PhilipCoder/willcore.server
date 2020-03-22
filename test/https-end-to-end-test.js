@@ -58,4 +58,16 @@ describe('https-end-to-end-test', function () {
         assert(resultPost.length === 24, "Result should have 12 items.");
          coreProxy.testServer.stop();
     });
+    it('getDataREST-alias-test',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.https;
+        coreProxy.testServer.demoService.service = "/test/mocks/getdataRestAction.js";
+
+        let result = await axios.get('https://localhost:8580/demoService/getData/JohnDoe/10');
+        result = result.data.result;
+        assert(Array.isArray(result), "Result should be array.");
+        assert(result.length === 10, "Result should have 12 items.");
+         coreProxy.testServer.stop();
+    });
 });

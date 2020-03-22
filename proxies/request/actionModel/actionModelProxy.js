@@ -20,6 +20,11 @@ class actionModelProxy extends baseProxy {
                     proxy[key] = sourceObj.parameters[key];
                 });
             }
+            if (sourceObj.restParameters && typeof sourceObj.restParameters === "object") {
+                Object.keys(sourceObj.restParameters).filter(k => !k.startsWith("_")).forEach(key => {
+                    proxy[key] = sourceObj.restParameters[key];
+                });
+            }
             if (sourceObj.body && typeof sourceObj.body === "object") {
                 Object.keys(sourceObj.body).filter(k => !k.startsWith("_")).forEach(key => {
                     proxy[key] = sourceObj.body[key];

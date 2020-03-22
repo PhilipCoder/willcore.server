@@ -41,7 +41,7 @@ class requestDetails {
         this._initLocals();
     }
 
-    static async fromRequest(request) {
+    static async fromRequest(request, parameterFormat) {
         let result = new requestDetails();
         if (request) {
             result.request = request;
@@ -50,6 +50,7 @@ class requestDetails {
             result.url = request.url;
             result.method = request.method;
             assignHeaders(result, request);
+            this.parameterFormat = parameterFormat;
         }
         return result;
     }
@@ -111,6 +112,21 @@ class requestDetails {
         let result = urlParts[2];
         if (result.indexOf("?") > 0) {
             result = result.substring(0, result.indexOf("?"))
+        }
+        return result;
+    }
+
+    get restParameters(){
+        let restParts = this.restParts;
+        let result = {};
+        if (this.parameterFormat){
+            let parameterFormatParts = this.parameterFormat;
+            let minimumCount = restParts.length < parameterFormatParts.length ? restParts.length : parameterFormatParts.length;
+            for (let i = 0; i < minimumCount; i++){
+                let parameterValue = restParts[i];
+                parameterValue = !isNaN(parameterValue) ? Number(parameterValue) : parameterValue;
+                result[parameterFormatParts[i]] = parameterValue;
+            }
         }
         return result;
     }

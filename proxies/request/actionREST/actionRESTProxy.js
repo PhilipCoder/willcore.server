@@ -13,7 +13,7 @@ class actionRESTProxy extends requestProxy {
      * @type {InstanceType<requestProxyHandler>}
      */
     static new(actionRESTAssignable) {
-        let result = new Proxy(new actionRESTProxy(), new actionRESTProxyHandler(actionRPCAssignable));
+        let result = new Proxy(new actionRESTProxy(), new actionRESTProxyHandler(actionRESTAssignable));
         return result;
     }
 }

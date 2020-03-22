@@ -27,6 +27,7 @@ class actionRESTAssignable extends requestAssignable {
     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
     */
     async onRequest(requestInfo, request,response) {
+        requestInfo.parameterFormat = this.parameterFormat;
         let model = actionModel.new(requestInfo);
         model.record();
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
