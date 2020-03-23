@@ -9,8 +9,7 @@ const assignable = require("willcore.core/assignable/assignable");
 const willCoreProxy = require("willcore.core");
 const serverProxy = require("../proxies/server/serverProxy.js");
 const serviceProxy = require("../proxies/service/serviceProxy.js");
-const fileServerProxy = require("../proxies/fileServer/fileServerProxy.js");
-const http = require('http');
+const requestProxyBase = require("../proxies/request/requestProxy.js");
 const requestDetails = require("../models/requestDetails.js").requestDetails;
 
 class serverAssignable extends assignable {
@@ -37,7 +36,7 @@ class serverAssignable extends assignable {
     }
 
     registerRequestProxy(activationSegment, requestProxy) {
-        if (!(requestProxy instanceof serviceProxy || requestProxy instanceof fileServerProxy)) throw "Only service proxies can be registered on a server.";
+        if (!(requestProxy instanceof serviceProxy || requestProxy instanceof requestProxyBase)) throw "Only service proxies can be registered on a server.";
         this.requestProxies[activationSegment] = requestProxy;
     }
 

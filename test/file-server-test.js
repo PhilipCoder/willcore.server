@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
 const willCoreProxy = require("willcore.core");
-const serverProxy = require("../proxies/fileServer/fileServerProxy.js");
+const serverProxy = require("../proxies/filesServer/filesServerProxy.js");
 const requestDetails = require("../models/requestDetails.js").requestDetails;
 
 describe('file-server-test', function () {
