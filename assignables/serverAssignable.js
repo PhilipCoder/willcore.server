@@ -27,7 +27,7 @@ class serverAssignable extends assignable {
      * @param {requestDetails} requestInfo 
      */
     async onRequest(requestInfo, request,response) {
-        let requestProxy = this.requestProxies[requestInfo.servicePart];
+        let requestProxy = this.requestProxies[requestInfo.url] || this.requestProxies[requestInfo.servicePart];
         if (!requestProxy) {
             return { data: JSON.stringify({ error: "Endpoint not found" }), mime: "application/json", status: 404 };
         }
@@ -41,19 +41,6 @@ class serverAssignable extends assignable {
     }
 
     completionResult() {
-        // let that = this;
-        // this.serverRequestEntry = async function (request, response) {
-        //     let requestInfo = await requestDetails.fromRequest(request);
-        //     let requestResult = await that.onRequest(requestInfo, request,response);
-        //     if (!requestResult) {
-        //         response.writeHead("200");
-        //         response.end("Bad Request");
-        //     } else if (!request.ended) {
-        //         response.writeHead(requestResult.status, { 'Content-Type': requestResult.mime });
-        //         response.end(requestResult.data);
-        //     }
-        // }
-        // this.server = http.createServer(this.serverRequestEntry).listen(this.serverInfo.port);
         let proxyResult = serverProxy.new(this);
         return proxyResult;
     }

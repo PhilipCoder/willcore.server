@@ -145,6 +145,12 @@ class requestDetails {
     get fileName() {
         let fileUrl = this._url.substring(1);
         fileUrl = fileUrl.substring(fileUrl.indexOf("/"));
+        let parameterIndex = fileUrl.indexOf("?");
+        if ( parameterIndex > -1)
+        {
+            fileUrl = fileUrl.substring(0,parameterIndex);
+        }
+        if (fileUrl.length === 0) fileUrl = "/";
         return fileUrl;
     }
 

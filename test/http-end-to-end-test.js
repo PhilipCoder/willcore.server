@@ -36,7 +36,7 @@ describe('http-end-to-end-test', function () {
         coreProxy.testServer.stop();
     });
 
-    it('getFile',async function () {
+    it('getFiles',async function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server = 8580;
         coreProxy.testServer.http;
@@ -73,5 +73,15 @@ describe('http-end-to-end-test', function () {
         assert(Array.isArray(result), "Result should be array.");
         assert(result.length === 10, "Result should have 12 items.");
          coreProxy.testServer.stop();
+    });
+    it('getFileHome',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.http;
+        let server = coreProxy.testServer;
+        server.homePage.file["/"] = "/test/mocks/index.html";
+        let result = await axios.get('http://localhost:8580/');
+        assert(result.data === "<h1>Hello world</h1>", "Wrong file data returned");
+        coreProxy.testServer.stop();
     });
 });
