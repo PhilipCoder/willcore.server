@@ -54,7 +54,7 @@ describe('https-end-to-end-test', function () {
         assert(result.length === 12, "Result should have 12 items.");
         let resultPost = await axios.post('https://localhost:8580/demoService/data', {'resultCount':12,value:"JohannDoe"} );
         resultPost = resultPost.data.result;
-        assert(Array.isArray(resultPost), "Result should be array.");
+        assert(Array.isArray(resultPost), "Result should be an array.");
         assert(resultPost.length === 24, "Result should have 12 items.");
          coreProxy.testServer.stop();
     });
@@ -66,7 +66,7 @@ describe('https-end-to-end-test', function () {
 
         let result = await axios.get('https://localhost:8580/demoService/getData/JohnDoe/10');
         result = result.data.result;
-        assert(Array.isArray(result), "Result should be array.");
+        assert(Array.isArray(result), "Result should be an array.");
         assert(result.length === 10, "Result should have 12 items.");
          coreProxy.testServer.stop();
     });
