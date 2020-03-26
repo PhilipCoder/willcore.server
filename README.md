@@ -172,7 +172,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
 Activation URL | _ | _ 
-Path to file on file system that should be served | - | - 
+Path to file on file system that should be served | _ | _ 
 <br/>
 
 
@@ -216,7 +216,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
-Path to directory that should be served | - | - 
+Path to directory that should be served | _ | _ 
 
 <br/>
 
@@ -255,6 +255,6 @@ Has Name | Assignable values | Assignable result | Can assign to
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
-Path to service file | - | - 
+Path to service file | _ | _
 
 <br/>
