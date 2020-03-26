@@ -102,13 +102,12 @@ String Values | Number Values | Function Values
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
-   ✗    | -          |  Promise< void >     | serverProxy
+   ❌    | -          |  Promise< void >     | serverProxy
 
 #### Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
- - | - | - 
 
 <br/>
 
@@ -116,13 +115,12 @@ String Values | Number Values | Function Values
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
-   ✗    | -          |  Promise< void >     | serverProxy
+   ❌    | -          |  Promise< void >     | serverProxy
 
 #### Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
- - | - | - 
 
 <br/>
 
