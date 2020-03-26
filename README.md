@@ -94,7 +94,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
- - | Server TCP port | - 
+ _ | Server TCP port | _ 
 
 <br/>
 
@@ -171,7 +171,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
-Activation URL | - | - 
+Activation URL | _ | _ 
 Path to file on file system that should be served | - | - 
 <br/>
 
