@@ -241,7 +241,7 @@ const willCoreProxy = require("willcore.core");
 
 When navigating to https://localhost:8580/jsFiles/bootstrap.js, the server will try and get the bootstrap.js file in the javascript folder and return it. If not found, a 404 error will be returned.
 
-## Services
+### __Services__
 
 A service is a container of components that serve dynamic data. These components are called actions. A service is composed of the service assignable and a function that should be the main export of a different file.
 
@@ -258,3 +258,178 @@ String Values | Number Values | Function Values
 Path to service file | _ | _
 
 <br/>
+
+#### Defining A Service
+
+```javascript
+//Importing the willCore proxy
+const willCoreProxy = require("willcore.core");
+
+//Lets use a IIFE to use async functionality.
+(async () => {
+    //New WillCore proxy instance.
+    const wCProxyInstance = willCoreProxy.new();
+    //Creates a new server named "testServer" on port 8580
+    coreProxy.testServer.server = 8580;
+    //Configure for http
+    await coreProxy.testServer.https;
+    //Define a service in a file /services/dataService
+     server.myService.service = "/services/dataService.js";
+})();
+```
+
+#### The Service Module
+
+The service module is a function that should be the default export of a separate file. This function will be executed as soon as the service module is instantiated. The function take the following parameters:
+
+Parameter Index | Parameter Type | Parameter Description
+--------------- | -------------- | ---------------------
+1               | serviceProxy   | An instance of the service proxy of the function
+2               | serverProxy    | An instance of the server proxy that the service is assigned to.
+3               | willCoreProxy  | The main WillCore proxy instance.
+
+#### Example Of A Service Module
+
+```javascript
+//services/dataService.js
+module.exports = (serviceProxy, serverProxy, willcoreProxy) => {
+  
+};
+```
+
+### __Actions__
+
+Actions are functions that are invoked via a request. An action receive data via a model and all changes done to the model inside the action will be returned. An action should be defined inside a service function. 
+
+> Actions will bind all inbound query parameters, request body values and REST parameters to the model.
+
+#### Supported HTTP Verbs
+
+   * get
+   * post
+   * put
+   * delete
+   * patch
+
+
+### __RPC Actions__
+
+RPC actions parameters are send via the body of a request or query string parameters. Unlike REST actions RPC actions can't have parameters defined as part of the URL route.
+
+### __Action assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | 1 String, 1 function |  actionRPCProxy     | serviceProxy
+
+#### Assignable values
+
+String Values | Number Values | Function Values
+------------- | ------------- | ---------------
+HTTP Verb     | _ | Action function 
+
+
+#### Defining actions :
+
+```javascript
+//Defines and exports the service module and function
+module.exports = (service, server, willcore) => {
+   //Action to get data Example URL: https://localhost:8410/serviceName/getData?data=SomeData
+    service.getData.action.get = async (model) => {
+        model.result = `Action received data: ${model.data}`;
+    };
+    //Action to add data
+    service.addData.action.post = async (model) => {
+        let valueToAdd = model.data;
+        //Code to add to database to go here
+        model.message = "Successfully added entry to DB.";
+    };
+};
+```
+
+### __REST Actions__
+
+REST actions parameters are send via the body of a request or query string parameters. Unlike RPC actions REST actions can have parameters defined as part of the URL route.
+
+REST actions can take a parameter template as an assignable value. The template format is :
+
+parameterNameA/parameterNameB
+
+### __Action assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | 2 Strings, 1 function |  actionRPCProxy     | serviceProxy
+
+#### Assignable values
+
+String Values | Number Values | Function Values
+------------- | ------------- | ---------------
+HTTP Verb     | _ | Action function 
+URL Parameter Template | _ | _
+
+
+#### Defining REST actions :
+
+```javascript
+//Defines and exports the service module and function
+module.exports = (service, server, willcore) => {
+   //Action to get data Example URL: https://localhost:8410/serviceName/getData/product/2
+   service.getData.actionREST["type/id"].get = async (model) => {
+        let type = model.type;
+        let id = model.id;
+        let dbResult = [];
+        //Get database results code to go here
+       model.result = dbResult;
+    };
+    //Request with body and URL parameter
+    service.updateData.actionREST["id"].put = async (model) => {
+        let id = model.id;
+        let newValue = model.value;
+        //Update database entry to go here
+        model.message = "Record updated.";
+    };
+};
+```
+
+
+### __Action Aliases__
+
+Sometimes it is required to have two or more actions activated on the same URL. For instance, if you have an action *account/user* and want to get, add, delete and update records, it is possible to have 4 different actions on the same URL if they have different HTTP verbs. This can be accomplished by defining the actions with different names and then afterwards giving the actions aliases.
+
+### __Action assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | _ |  Empty     | actionRESTProxy, actionRPCProxy
+
+#### Assignable values
+
+String Values | Number Values | Function Values
+------------- | ------------- | ---------------
+
+#### Using Action Aliases
+
+```javascript
+module.exports = (service, server, willcore) => {
+   //Can be called via URL: https:/localhost/account/user Verb: GET
+    service.user.action.get = async (model) => {
+       //Code to go here
+    };
+    //Can be called via URL: https:/localhost/account/user Verb: POST
+    service.postUser.action.post = async (model) => {
+          //Code to go here
+    };
+    service.postUser.data.alias;
+    //Can be called via URL: https:/localhost/account/user Verb: POST
+    service.putUser.action.put = async (model) => {
+          //Code to go here
+    };
+    service.putUser.data.alias;
+    //Can be called via URL: https:/localhost/account/user Verb: DELETE
+    service.deletetUser.action.delete = async (model) => {
+          //Code to go here
+    };
+    service.deletetUser.data.alias;
+};
+```
