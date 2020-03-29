@@ -5,21 +5,53 @@
 </p>
 
 ## Index
-* Assignable introduction
-* Features overview
-* Installing willcore.server
-* Creating a server
-    *  HTTP
-    * HTTPS
-* Hosting files
-* Hosting a single file
-* Services
-* RPC Actions
-* REST Actions
-* Interceptors
-___
 
-### A) Assignable-Introduction
+- [Assignable Intruduction](#Assignable-Introduction)
+- [Getting started](#Getting-started)
+  - [Installing WillCore.Server](#Installing-WillCore.Server)
+- [Creating a server](#Creating-a-server)
+ - [Server assignable](#Server-assignable)
+  - [Server Assignable values](#Server-Assignable-values)
+ - [HTTP assignable](#HTTP-assignable)
+ - [HTTPS assignable](#HTTPS-assignable)
+  - [HTTPS Assignable values](#HTTPS-Assignable-values)
+  - [Creating a HTTP server](#Creating-a-HTTP-server)
+  - [Creating a HTTPS server](#Creating-a-HTTPS-server)
+- [Serving a single file](#Serving-a-single-file)
+ - [File assignable](#File-assignable)
+  - [Assignable values](#Assignable-values)
+- [Serving files in a directory](#Serving-files-in-a-directory)
+  - [Files assignable](#Files-assignable)
+  - [Assignable values](#Assignable-values)
+  - [Serving files in a folder](#Serving-files-in-a-folder)
+ - [Services](#Services)
+    - [Service assignable](#Service-assignable)
+    - [Assignable values](#Assignable-values])
+    - [Defining A Service](#Defining-A-Service)
+    - [The Service Module](#The-Service-Module)
+    - [Example Of A Service Module](#Example-Of-A-Service-Module)
+ - [Actions](#Actions)
+   - [Supported HTTP Verbs](#Supported-HTTP-Verbs)
+   - [RPC Actions](#RPC-Actions)
+     - [Action assignable](#Action-assignable)
+     - [Action Assignable values](#Action-Assignable-values)
+     - [Defining actions](#Defining-actions)
+   - [REST Actions](#REST-Actions)
+     - [ActionREST assignable](#ActionREST-assignable)
+     - [Action Assignable values](#Action-Assignable-values)
+     - [Defining REST actions](#Defining-REST-actions)
+   - [Action Aliases](#Action-Aliases)
+     - [Action Alias Assignable](#Action-Alias-Assignable)
+     - [Action Assignable values](#Action-Assignable-values)
+     - [Using Action Aliases](#Using-Action-Aliases)
+ - [Request Interceptors](#Request-Interceptors])
+   - [Interceptor assignable](#Interceptor-assignable)
+   - [Interceptor Assignable values](#Interceptor-Assignable-values)
+   - [Action Interceptors](#Action-Interceptors)
+   - [Action Interceptor Function Parameters](#Action-Interceptor-Function-Parameters)
+   - [Using An Interceptor To Block Access To An Action](#Using-An-Interceptor-To-Block-Access-To-An-Action)
+   - [File Interceptor Function Parameters](#File-Interceptor-Function-Parameters)
+
 ___
 
 In order to make the API as simple as possible, WillCore uses the concept of assignables to instantiate and assign state to internal objects. The concept might be a bit weird at first, but it simplifies the API.
@@ -57,7 +89,8 @@ dbProxy.usersDB.usersTable.table;
 >The two examples above do the exact same thing. 
 When the class is assigned to $elementId, the framework checks if the class inherits from an assignable. Then it creates an instance of the mysql class. The instance of the mysql class then tells WillCore that it needs 3 strings to complete assignment. When the strings are assigned, the mysql class initiates itself.
 
- #### The syntax for assignables is:
+ #### The syntax for assignables is: 
+
 > proxyInstance.newPropertyName.newObjectType = assignmentValues (optional)
 
 * __Proxy Instance :__ An instance of a proxy that supports assignables. In the case of WillCore.Data, it can be the main proxy, a database proxy, table proxy or column proxy.
@@ -73,6 +106,7 @@ WillCore.Server is an expansion module on the WillCore framework. It provides ea
 * RPC and REST service functionality (JSON).
 
 #### Installing WillCore.Server
+
 WillCore.Server can be installed as an extension module on WillCore.Server:
 
 ```javascript
@@ -82,6 +116,7 @@ npm install willcore.server
 
 
 ## Creating a server
+
 As with other willCore modules, the main willCore proxy needs to be imported and the server created the assignable way.
 
 ### __Server assignable__
@@ -90,7 +125,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ✔    | 1 Number          |  serverProxy     | willCoreProxy
 
-#### Assignable values
+#### Server Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -104,7 +139,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ❌    | -          |  Promise< void >     | serverProxy
 
-#### Assignable values
+#### HTTP Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -117,7 +152,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ❌    | -          |  Promise< void >     | serverProxy
 
-#### Assignable values
+#### HTTPS Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -125,6 +160,7 @@ String Values | Number Values | Function Values
 <br/>
 
 #### Creating a HTTP server
+
 ```javascript
 //Importing the willCore proxy
 const willCoreProxy = require("willcore.core");
@@ -141,6 +177,7 @@ const willCoreProxy = require("willcore.core");
 ```
 
 #### Creating a HTTPS server
+
 ```javascript
 //Importing the willCore proxy
 const willCoreProxy = require("willcore.core");
@@ -322,7 +359,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ✔    | 1 String, 1 function |  actionRPCProxy     | serviceProxy
 
-#### Assignable values
+#### Action Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -355,13 +392,13 @@ REST actions can take a parameter template as an assignable value. The template 
 
 parameterNameA/parameterNameB
 
-### __Action assignable__
+### __ActionREST assignable__
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ✔    | 2 Strings, 1 function |  actionRPCProxy     | serviceProxy
 
-#### Assignable values
+#### Action Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -403,7 +440,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ✔    | _ |  Empty     | actionRESTProxy, actionRPCProxy
 
-#### Assignable values
+#### Action Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
@@ -433,3 +470,66 @@ module.exports = (service, server, willcore) => {
     service.deletetUser.data.alias;
 };
 ```
+
+### __Request Interceptors__
+
+Interceptors are functions that intercept and executes a function a request before or after an action is executed or file is returned. This can be used to implement token or cookie based authentication, caching etc. An interceptor can be defined via the interceptor assignable.
+
+### __Interceptor assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | 1 function |  Empty     | actionRESTProxy, actionRPCProxy, fileServerProxy, filesServerProxy -> requestProxy
+
+#### Interceptor Assignable values 
+
+String Values | Number Values | Function Values | Name Values
+------------- | ------------- | --------------- | ---------------
+- | - | - | before or after
+
+### Action Interceptors
+
+#### Action Interceptor Function Parameters
+
+1. Action Model
+2. HTTP(S) Request Instance
+3. HTTP(S) Response Instance
+
+When an action interceptor returns falsy, it returns the provided values assigned to the model as well as the assigned HTTP status code. This can be used for instance to block access to an action or cache the result of an action. 
+
+#### Using An Interceptor To Block Access To An Action 
+
+```javascript
+module.exports = (service, server, willcore) => {
+   //Defines action to get data
+    service.getData.action.get = async (model) => {
+       model.data = [ { value : "Johanna Doe" } ];
+    };
+    //Authorization interceptor
+    service.getData.before.interceptor = async (model, request, response) => {
+       let result = true;
+       if (model.user === "JohnDoe"){
+         model.statusCode = 501;
+         model.error = "Unauthorized";
+         result = false;
+       }
+       return result;
+    };
+   //Interceptor to add data to the response
+   service.getData.after.interceptor = async (model, request, response) => {
+      model.server = "WillCore.Server";
+      return true;
+   };
+};
+
+```
+
+
+#### File Interceptor Function Parameters
+
+1. File Path (before) and file data (for after)
+2. HTTP(S) Request Instance
+3. HTTP(S) Response Instance
+
+File interceptors differs form action interceptors in the sense that file interceptors will return the result of the interceptor function if the value of the interceptor function's result evaluate to truthy. When the function returns data, the MIME type (response.mimeType) and status code (response.statusCode) needs to be specified on the response.
+

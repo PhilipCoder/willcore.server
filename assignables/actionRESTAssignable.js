@@ -40,7 +40,7 @@ class actionRESTAssignable extends requestAssignable {
         await this.requestFunction(model);
 
         for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++) {
-            let interceptorResult = await this.interceptors.after[afterIndex](model);
+            let interceptorResult = await this.interceptors.after[afterIndex](model, request,response);
             if (!interceptorResult) {
                 return { data: JSON.stringify(model.stateValues), mime: "application/json", status: model.statusCode };
             }

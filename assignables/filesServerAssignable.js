@@ -37,7 +37,7 @@ class filesServerAssignable extends assignable {
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](filePath, request, response);
             if (interceptorResult) {
-                return { data: interceptorResult, mime: model.mimeType, status: model.statusCode };
+                return { data: interceptorResult, mime: response.mimeType, status: response.statusCode };
             }
         }
 
@@ -48,7 +48,7 @@ class filesServerAssignable extends assignable {
         for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++) {
             let interceptorResult = await this.interceptors.after[afterIndex](data, request,response);
             if (!interceptorResult) {
-                return { data: interceptorResult, mime:mimeType, status: model.statusCode };
+                return { data: interceptorResult, mime:mimeType, status: response.statusCode };
             }
         }
         return { data:data, mime: mimeType, status: 200 };
