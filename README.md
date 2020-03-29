@@ -2,6 +2,7 @@
 <img src="res/WillCoreLogo.png"  />
 <h1 align="center">WillCore.Server</h1>
 <h5 align="center">Build With Proxies - By Philip Schoeman</h5>
+<h5 align="center">License : MIT</h5>
 </p>
 
 ## Index
@@ -485,7 +486,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 
 String Values | Number Values | Function Values | Name Values
 ------------- | ------------- | --------------- | ---------------
-- | - | - | before or after
+_ | _ | _ | before or after
 
 ### Action Interceptors
 
