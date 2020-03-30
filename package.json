@@ -1,4 +1,8 @@
 {
+    "name": "willcore.server",
+    "version": "1.0.0",
+    "description": "Lightweight and modular NodeJS server.",
+    "main": "moduleContainer/willCoreModules.js",
     "_moduleAliases": {
         "willcore.server": "moduleContainer/willCoreModules.js"
     },
@@ -9,5 +13,28 @@
         "mocha": "^7.0.1",
         "module-alias": "^2.2.2",
         "willcore.core": "^1.0.7"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PhilipCoder/willcore.server.git"
+      },
+      "keywords": [
+        "Server",
+        "NodeJS"
+      ],
+      "author": "Philip Schoeman",
+      "license": "LGPL-2.1-only",
+      "bugs": {
+        "url": "https://github.com/PhilipCoder/willcore.server/issues"
+      },
+      "homepage": "https://github.com/PhilipCoder/willcore.server#readme",
+      "files": [
+        "/assignables",
+        "/certificates",
+        "/helpers",
+        "/loaders",
+        "/models",
+        "/moduleContainer",
+        "/proxies"
+      ]
 }
