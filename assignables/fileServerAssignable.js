@@ -35,7 +35,7 @@ class fileServerAssignable extends assignable {
         if (!mimeType) {
             return { data: JSON.stringify({ error: "Invalid MIME type." }), mime: "application/json", status: 404 };
         }
-        let filePath = this.parentProxy._assignable.pathHelper.getAbsolutePath(__dirname, this.fileURL);
+        let filePath = this.parentProxy._assignable.pathHelper.getAbsolutePath(this.parentProxy._assignable.pathHelper.projectDir, this.fileURL);
 
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](filePath, request, response);

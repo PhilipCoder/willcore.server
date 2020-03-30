@@ -28,7 +28,7 @@ class serverHTTPS extends assignable {
                 }
             }
             let config = autoSelfSign.config;
-            config.certificateFolder = this.parentProxy._assignable.pathHelper.getAbsolutePath(__dirname, "/certificates");
+            config.certificateFolder = this.parentProxy._assignable.pathHelper.getAbsolutePath( this.parentProxy._assignable.pathHelper.projectDir, "/certificates");
             let certificates = await autoSelfSign.autoSelfSign(config);
             const options = {
                 key: certificates.key,

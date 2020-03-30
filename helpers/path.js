@@ -5,11 +5,11 @@ class pathHelper {
         this.rootDirectory = rootDirectory;
     }
     get projectDir() {
-        return path.normalize(this.rootDirectory);
+        return path.normalize(`${this.rootDirectory}/..`);
     }
 
     getRelativePath(sourcePath, targetPath) {
-        let fullTargetPath = path.join(pathHelper.projectDir, targetPath);
+        let fullTargetPath = path.join(this.projectDir, targetPath);
         let relativePath = path.relative(sourcePath, fullTargetPath);
         relativePath = relativePath.startsWith(".") ? relativePath : '.' + path.join("\\", relativePath);
         return relativePath;
@@ -19,7 +19,7 @@ class pathHelper {
         sourcePath = sourcePath.replace(/\//g, '\\');
         targetPath = targetPath.replace(/\//g, '\\');
 
-        let fullTargetPath = path.join(pathHelper.projectDir, targetPath);
+        let fullTargetPath = path.join(this.projectDir, targetPath);
         return fullTargetPath;
     }
 

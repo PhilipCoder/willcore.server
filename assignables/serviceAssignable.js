@@ -28,7 +28,7 @@ class serviceAssignable extends assignable {
     completionResult() {
         let proxyResult = serviceProxy.new(this);
         this.parentProxy._assignable.registerRequestProxy(this.propertyName, proxyResult);
-        moduleLoader(this.bindedValues.string[0], proxyResult, this.parentProxy, this.parentProxy._assignable.parentProxy);
+        moduleLoader(this.bindedValues.string[0], proxyResult, this.parentProxy, this.parentProxy._assignable.parentProxy,this.parentProxy._assignable.pathHelper);
         return proxyResult;
     }
 
