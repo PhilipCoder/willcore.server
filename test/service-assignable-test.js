@@ -14,7 +14,7 @@ describe('service-assignable-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
-        server.myService.service = "/test/mocks/serviceRPCMock.js";
+        server.myService.service = "/mocks/serviceRPCMock.js";
 
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData, "Action proxy is not assigned.");
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
@@ -24,7 +24,7 @@ describe('service-assignable-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
-        server.myService.service = "/test/mocks/serviceMockTestCalled.js";
+        server.myService.service = "/mocks/serviceMockTestCalled.js";
 
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData, "Action proxy is not assigned.");
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");
@@ -41,7 +41,7 @@ describe('service-assignable-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
-        server.myService.service = "/test/mocks/interceptorBeforeBlockMock.js";
+        server.myService.service = "/mocks/interceptorBeforeBlockMock.js";
 
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData, "Action proxy is not assigned.");
         assert(coreProxy.testServer.myService._assignable.requests.GET.getData instanceof actionRPCProxy, "Action proxy is not an instance of the actionRPCProxy.");

@@ -23,7 +23,7 @@ describe('server-assignable-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
         
         let server = coreProxy.testServer;
-        server.myService.service = "/test/mocks/serviceMock.js";
+        server.myService.service = "/mocks/serviceMock.js";
 
         assert(coreProxy.testServer.myService, "Service proxy is  not assigned.");
         assert(coreProxy.testServer.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");
@@ -35,7 +35,7 @@ describe('server-assignable-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
         
         let server = coreProxy.testServer;
-        server.myService.service = "/test/mocks/serviceMock.js";
+        server.myService.service = "/mocks/serviceMock.js";
 
         assert(coreProxy.testServer._assignable.requestProxies.myService, "Service proxy is  not assigned.");
         assert(coreProxy.testServer._assignable.requestProxies.myService instanceof serviceProxy, "Server proxy is not an instance of the serverProxy.");

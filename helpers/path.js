@@ -5,7 +5,7 @@ class pathHelper {
         this.rootDirectory = rootDirectory;
     }
     get projectDir() {
-        return path.normalize(`${this.rootDirectory}/..`);
+        return path.normalize(`${this.rootDirectory}`);
     }
 
     getRelativePath(sourcePath, targetPath) {

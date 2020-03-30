@@ -15,7 +15,7 @@ describe('http-end-to-end-test', function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
-        coreProxy.testServer.demoService.service = "/test/mocks/getdataRPCAction.js";
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
 
         let result = await axios.get('http://localhost:8580/demoService/getData?resultCount=12&value=JohnDoe');
         result = result.data.result;
@@ -27,7 +27,7 @@ describe('http-end-to-end-test', function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
-        coreProxy.testServer.demoService.service = "/test/mocks/getdataRPCAction.js";
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
 
         let result = await axios.post('http://localhost:8580/demoService/postData', {'resultCount':12,value:"JohannDoe"} );
         result = result.data.result;
@@ -41,7 +41,7 @@ describe('http-end-to-end-test', function () {
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let server = coreProxy.testServer;
-        server.javascript.files = "/test/mocks";
+        server.javascript.files = "/mocks";
         let result = await axios.get('http://localhost:8580/javascript/dummyFile.js');
         assert(result.data === "//hello world", "Wrong file data returned");
         coreProxy.testServer.stop();
@@ -50,7 +50,7 @@ describe('http-end-to-end-test', function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
-        coreProxy.testServer.demoService.service = "/test/mocks/getPostDataRPCAction.js";
+        coreProxy.testServer.demoService.service = "/mocks/getPostDataRPCAction.js";
 
         let result = await axios.get('http://localhost:8580/demoService/data?resultCount=12&value=JohnDoe');
         result = result.data.result;
@@ -66,7 +66,7 @@ describe('http-end-to-end-test', function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
-        coreProxy.testServer.demoService.service = "/test/mocks/getdataRestAction.js";
+        coreProxy.testServer.demoService.service = "/mocks/getdataRestAction.js";
 
         let result = await axios.get('http://localhost:8580/demoService/getData/JohnDoe/10');
         result = result.data.result;
@@ -79,7 +79,7 @@ describe('http-end-to-end-test', function () {
         coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let server = coreProxy.testServer;
-        server.homePage.file["/"] = "/test/mocks/index.html";
+        server.homePage.file["/"] = "/mocks/index.html";
         let result = await axios.get('http://localhost:8580/');
         assert(result.data === "<h1>Hello world</h1>", "Wrong file data returned");
         coreProxy.testServer.stop();

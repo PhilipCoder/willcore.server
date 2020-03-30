@@ -11,7 +11,7 @@ describe('file-server-test', function () {
         let coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8080;
         let server = coreProxy.testServer;
-        server.javascript.files = "/test/mocks";
+        server.javascript.files = "/mocks";
 
         assert(server.javascript, "File server proxy is not assigned.");
         assert(server.javascript instanceof serverProxy, "File server is not an instance of the serverProxy.");
@@ -22,7 +22,7 @@ describe('file-server-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
-        server.javascript.files = "/test/mocks";
+        server.javascript.files = "/mocks";
 
         let requestInfo = new requestDetails();
         requestInfo.url = "/javascript/dummyFile.js";
@@ -37,7 +37,7 @@ describe('file-server-test', function () {
         coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
-        server.javascript.files = "/test/mocks";
+        server.javascript.files = "/mocks";
 
         let requestInfo = new requestDetails();
         requestInfo.url = "/javascript/nonExistingFile.js";
