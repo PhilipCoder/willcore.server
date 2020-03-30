@@ -39,7 +39,7 @@ describe('models-test', function () {
 
     it('requestInfo-model-parameter-test',async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         coreProxy.testServer._assignable.onRequest = async function (requestInfo) {
             coreProxy.testServer.stop();
@@ -52,7 +52,7 @@ describe('models-test', function () {
 
     it('requestInfo-model-body-test',async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let body = { mydata: "helo world" };
         coreProxy.testServer._assignable.onRequest = function (requestInfo) {
@@ -63,7 +63,7 @@ describe('models-test', function () {
     });
     it('requestInfo-model-token-test',async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let body = { mydata: "helo world" };
         coreProxy.testServer._assignable.onRequest = function (requestInfo) {

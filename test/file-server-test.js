@@ -9,7 +9,7 @@ describe('file-server-test', function () {
     });
     it('test-proxy', function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.server[__dirname] = 8080;
         let server = coreProxy.testServer;
         server.javascript.files = "/test/mocks";
 
@@ -19,7 +19,7 @@ describe('file-server-test', function () {
 
     it('test-run-action', async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
         server.javascript.files = "/test/mocks";
@@ -34,7 +34,7 @@ describe('file-server-test', function () {
 
     it('test-run-action-invalid-file', async function () {
         let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8080;
+        coreProxy.testServer.server[__dirname] = 8080;
 
         let server = coreProxy.testServer;
         server.javascript.files = "/test/mocks";

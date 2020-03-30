@@ -7,51 +7,54 @@
 
 ## Index
 
-- [Assignable Intruduction](#Assignable-Introduction)
-- [Getting started](#Getting-started)
-  - [Installing WillCore.Server](#Installing-WillCore.Server)
-- [Creating a server](#Creating-a-server)
- - [Server assignable](#Server-assignable)
-  - [Server Assignable values](#Server-Assignable-values)
- - [HTTP assignable](#HTTP-assignable)
- - [HTTPS assignable](#HTTPS-assignable)
-  - [HTTPS Assignable values](#HTTPS-Assignable-values)
-  - [Creating a HTTP server](#Creating-a-HTTP-server)
-  - [Creating a HTTPS server](#Creating-a-HTTPS-server)
-- [Serving a single file](#Serving-a-single-file)
- - [File assignable](#File-assignable)
-  - [Assignable values](#Assignable-values)
-- [Serving files in a directory](#Serving-files-in-a-directory)
-  - [Files assignable](#Files-assignable)
-  - [Assignable values](#Assignable-values)
-  - [Serving files in a folder](#Serving-files-in-a-folder)
- - [Services](#Services)
-    - [Service assignable](#Service-assignable)
-    - [Assignable values](#Assignable-values])
-    - [Defining A Service](#Defining-A-Service)
-    - [The Service Module](#The-Service-Module)
-    - [Example Of A Service Module](#Example-Of-A-Service-Module)
- - [Actions](#Actions)
-   - [Supported HTTP Verbs](#Supported-HTTP-Verbs)
-   - [RPC Actions](#RPC-Actions)
-     - [Action assignable](#Action-assignable)
-     - [Action Assignable values](#Action-Assignable-values)
-     - [Defining actions](#Defining-actions)
-   - [REST Actions](#REST-Actions)
-     - [ActionREST assignable](#ActionREST-assignable)
-     - [Action Assignable values](#Action-Assignable-values)
-     - [Defining REST actions](#Defining-REST-actions)
-   - [Action Aliases](#Action-Aliases)
-     - [Action Alias Assignable](#Action-Alias-Assignable)
-     - [Action Assignable values](#Action-Assignable-values)
-     - [Using Action Aliases](#Using-Action-Aliases)
- - [Request Interceptors](#Request-Interceptors])
-   - [Interceptor assignable](#Interceptor-assignable)
-   - [Interceptor Assignable values](#Interceptor-Assignable-values)
-   - [Action Interceptors](#Action-Interceptors)
-   - [Action Interceptor Function Parameters](#Action-Interceptor-Function-Parameters)
-   - [Using An Interceptor To Block Access To An Action](#Using-An-Interceptor-To-Block-Access-To-An-Action)
-   - [File Interceptor Function Parameters](#File-Interceptor-Function-Parameters)
+- [Index](#index)
+    - [The syntax for assignables is:](#the-syntax-for-assignables-is)
+- [Getting started](#getting-started)
+    - [Installing WillCore.Server](#installing-willcoreserver)
+- [Creating a server](#creating-a-server)
+  - [__Server assignable__](#server-assignable)
+    - [Server Assignable values](#server-assignable-values)
+  - [__HTTP assignable__](#http-assignable)
+    - [HTTP Assignable values](#http-assignable-values)
+  - [__HTTPS assignable__](#https-assignable)
+    - [HTTPS Assignable values](#https-assignable-values)
+    - [Creating a HTTP server](#creating-a-http-server)
+    - [Creating a HTTPS server](#creating-a-https-server)
+- [Serving a single file](#serving-a-single-file)
+  - [__File assignable__](#file-assignable)
+    - [Assignable values](#assignable-values)
+    - [For instance to display a file **"/views/index.html"** home page on **http://localhost:8580**:](#for-instance-to-display-a-file-%22viewsindexhtml%22-home-page-on-httplocalhost8580)
+- [Serving files in a directory](#serving-files-in-a-directory)
+  - [__Files assignable__](#files-assignable)
+    - [Assignable values](#assignable-values-1)
+    - [Serving files in a folder](#serving-files-in-a-folder)
+  - [__Services__](#services)
+  - [__Service assignable__](#service-assignable)
+    - [Assignable values](#assignable-values-2)
+    - [Defining A Service](#defining-a-service)
+    - [The Service Module](#the-service-module)
+    - [Example Of A Service Module](#example-of-a-service-module)
+  - [__Actions__](#actions)
+    - [Supported HTTP Verbs](#supported-http-verbs)
+  - [__RPC Actions__](#rpc-actions)
+  - [__Action assignable__](#action-assignable)
+    - [Action Assignable values](#action-assignable-values)
+    - [Defining actions :](#defining-actions)
+  - [__REST Actions__](#rest-actions)
+  - [__ActionREST assignable__](#actionrest-assignable)
+    - [Action Assignable values](#action-assignable-values-1)
+    - [Defining REST actions :](#defining-rest-actions)
+  - [__Action Aliases__](#action-aliases)
+  - [__Action assignable__](#action-assignable-1)
+    - [Action Assignable values](#action-assignable-values-2)
+    - [Using Action Aliases](#using-action-aliases)
+  - [__Request Interceptors__](#request-interceptors)
+  - [__Interceptor assignable__](#interceptor-assignable)
+    - [Interceptor Assignable values](#interceptor-assignable-values)
+  - [Action Interceptors](#action-interceptors)
+    - [Action Interceptor Function Parameters](#action-interceptor-function-parameters)
+    - [Using An Interceptor To Block Access To An Action](#using-an-interceptor-to-block-access-to-an-action)
+    - [File Interceptor Function Parameters](#file-interceptor-function-parameters)
 
 ___
 
@@ -124,13 +127,13 @@ As with other willCore modules, the main willCore proxy needs to be imported and
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
-   ✔    | 1 Number          |  serverProxy     | willCoreProxy
+   ✔    | 1 Number, 1 String          |  serverProxy     | willCoreProxy
 
 #### Server Assignable values
 
 String Values | Number Values | Function Values
 ------------- | ------------- | ---------------
- _ | Server TCP port | _ 
+ Server File Root Directory | Server TCP port | _ 
 
 <br/>
 
@@ -171,7 +174,7 @@ const willCoreProxy = require("willcore.core");
     //New WillCore proxy instance.
     const wCProxyInstance = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server = 8580;
+    coreProxy.testServer.server[__dirname] = 8580;
     //Configure for http
     await coreProxy.testServer.http;
 })();
@@ -188,7 +191,7 @@ const willCoreProxy = require("willcore.core");
     //New WillCore proxy instance.
     const wCProxyInstance = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server = 8580;
+    coreProxy.testServer.server[__dirname] = 8580;
     //Configure for http
     await coreProxy.testServer.https;
 })();
@@ -227,7 +230,7 @@ const willCoreProxy = require("willcore.core");
     //New WillCore proxy instance.
     const wCProxyInstance = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server = 8580;
+    coreProxy.testServer.server[__dirname] = 8580;
     //Configure for http
     await coreProxy.testServer.https;
     //Serve the home page
@@ -269,7 +272,7 @@ const willCoreProxy = require("willcore.core");
     //New WillCore proxy instance.
     const wCProxyInstance = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server = 8580;
+    coreProxy.testServer.server[__dirname] = 8580;
     //Configure for http
     await coreProxy.testServer.https;
     //Serve the javascript folder.
@@ -308,7 +311,7 @@ const willCoreProxy = require("willcore.core");
     //New WillCore proxy instance.
     const wCProxyInstance = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server = 8580;
+    coreProxy.testServer.server[__dirname] = 8580;
     //Configure for http
     await coreProxy.testServer.https;
     //Define a service in a file /services/dataService

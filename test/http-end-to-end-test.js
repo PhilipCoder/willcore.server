@@ -13,7 +13,7 @@ describe('http-end-to-end-test', function () {
     });
     it('getDataRPC-get-test',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         coreProxy.testServer.demoService.service = "/test/mocks/getdataRPCAction.js";
 
@@ -25,7 +25,7 @@ describe('http-end-to-end-test', function () {
     });
     it('getDataRPC-post-test',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         coreProxy.testServer.demoService.service = "/test/mocks/getdataRPCAction.js";
 
@@ -38,7 +38,7 @@ describe('http-end-to-end-test', function () {
 
     it('getFiles',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let server = coreProxy.testServer;
         server.javascript.files = "/test/mocks";
@@ -48,7 +48,7 @@ describe('http-end-to-end-test', function () {
     });
     it('getDataRPC-alias-test',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         coreProxy.testServer.demoService.service = "/test/mocks/getPostDataRPCAction.js";
 
@@ -64,7 +64,7 @@ describe('http-end-to-end-test', function () {
     });
     it('getDataREST-alias-test',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         coreProxy.testServer.demoService.service = "/test/mocks/getdataRestAction.js";
 
@@ -76,7 +76,7 @@ describe('http-end-to-end-test', function () {
     });
     it('getFileHome',async function () {
         coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server = 8580;
+        coreProxy.testServer.server[__dirname] = 8580;
         coreProxy.testServer.http;
         let server = coreProxy.testServer;
         server.homePage.file["/"] = "/test/mocks/index.html";

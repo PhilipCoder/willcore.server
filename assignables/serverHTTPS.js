@@ -4,7 +4,6 @@ const requestDetails = require("../models/requestDetails.js").requestDetails;
 const serverProxy = require("../proxies/server/serverProxy.js");
 const fileHelper = require("../helpers/fileHelper.js");
 const autoSelfSign = require("auto.self.sign");
-const pathHelper = require("../helpers/path.js");
 
 class serverHTTPS extends assignable {
     constructor() {
@@ -29,7 +28,7 @@ class serverHTTPS extends assignable {
                 }
             }
             let config = autoSelfSign.config;
-            config.certificateFolder = pathHelper.getAbsolutePath(__dirname, "/certificates");
+            config.certificateFolder = this.parentProxy._assignable.pathHelper.getAbsolutePath(__dirname, "/certificates");
             let certificates = await autoSelfSign.autoSelfSign(config);
             const options = {
                 key: certificates.key,

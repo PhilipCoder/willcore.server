@@ -11,16 +11,19 @@ const serverProxy = require("../proxies/server/serverProxy.js");
 const serviceProxy = require("../proxies/service/serviceProxy.js");
 const requestProxyBase = require("../proxies/request/requestProxy.js");
 const requestDetails = require("../models/requestDetails.js").requestDetails;
+const pathHelper = require("../helpers/path.js");
 
 class serverAssignable extends assignable {
     constructor() {
-        super({ number: 1 }, willCoreProxy);
+        super({ number: 1, string: 1 }, willCoreProxy);
         this.serverInfo = {
             port: 3003,
             name: ""
         };
         this.server = null;
         this.requestProxies = {};
+        this.directory = null;
+        this.pathHelper = null;
     }
 
     /**
@@ -48,6 +51,8 @@ class serverAssignable extends assignable {
     completed() {
         this.serverInfo.name = this.propertyName;
         this.serverInfo.port = this.bindedValues.number[0];
+        this.directory = this.bindedValues.string[0];
+        this.pathHelper = new pathHelper(this.directory);
     }
 }
 

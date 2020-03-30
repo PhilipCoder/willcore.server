@@ -1,18 +1,21 @@
 const path = require("path");
 
 class pathHelper {
-    static get projectDir() {
-        return path.normalize(`${__dirname}\\..`);
+    constructor(rootDirectory){
+        this.rootDirectory = rootDirectory;
+    }
+    get projectDir() {
+        return path.normalize(this.rootDirectory);
     }
 
-    static getRelativePath(sourcePath, targetPath) {
+    getRelativePath(sourcePath, targetPath) {
         let fullTargetPath = path.join(pathHelper.projectDir, targetPath);
         let relativePath = path.relative(sourcePath, fullTargetPath);
         relativePath = relativePath.startsWith(".") ? relativePath : '.' + path.join("\\", relativePath);
         return relativePath;
     }
 
-    static getAbsolutePath(sourcePath, targetPath) {
+    getAbsolutePath(sourcePath, targetPath) {
         sourcePath = sourcePath.replace(/\//g, '\\');
         targetPath = targetPath.replace(/\//g, '\\');
 
@@ -20,7 +23,7 @@ class pathHelper {
         return fullTargetPath;
     }
 
-    static getFilePath(assignablePath, filePath) {
+    getFilePath(assignablePath, filePath) {
         let directory = this.getAbsolutePath(this.projectDir, assignablePath);
         filePath = filePath.replace(/\//g, '\\');
         let finalFilePath = path.join(directory, filePath);

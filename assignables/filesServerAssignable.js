@@ -1,7 +1,6 @@
 const assignable = require("willcore.core/assignable/assignable");
 const filesServerProxy = require("../proxies/filesServer/filesServerProxy.js");
 const serverProxy = require("../proxies/server/serverProxy.js");
-const pathHelper = require("../helpers/path.js");
 const fileHelper = require("../helpers/fileHelper.js");
 const mimeTypes = require("../helpers/mimeTypes.json");
 const file = require("path");
@@ -32,7 +31,7 @@ class filesServerAssignable extends assignable {
             return { data: JSON.stringify({ error: "Invalid MIME type." }), mime: "application/json", status: 404 };
         }
         let assignablePath = this.bindedValues.string[0];
-        let filePath = pathHelper.getFilePath(assignablePath, requestInfo.fileName);
+        let filePath = this.parentProxy._assignable.pathHelper.getFilePath(assignablePath, requestInfo.fileName);
 
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](filePath, request, response);
