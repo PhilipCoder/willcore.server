@@ -84,4 +84,17 @@ describe('http-end-to-end-test', function () {
         assert(result.data === "<h1>Hello world</h1>", "Wrong file data returned");
         coreProxy.testServer.stop();
     });
+    it('getExecutableService',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server[__dirname] = 8580;
+        coreProxy.testServer.http;
+        let server = coreProxy.testServer;
+        server.homePage.executableService["/"] = ()=>{
+            let serviceResult = require("../models/serviceResult.js");
+            return new serviceResult(200,"application/json", '{"success":true}');
+        };
+        let result = await axios.get('http://localhost:8580/');
+        assert(result.data.success === true, "Wrong data returned");
+        coreProxy.testServer.stop();
+    });
 });

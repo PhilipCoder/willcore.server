@@ -10,4 +10,5 @@ module.exports = (willCoreModuleInstance) => {
        willCoreModuleInstance.compression = () => require("../assignables/responseCompressionAssignable.js");
        willCoreModuleInstance.http = () => require("../assignables/serverHTTP.js");
        willCoreModuleInstance.https = () => require("../assignables/serverHTTPS.js");
+       willCoreModuleInstance.executableService = () => require("../assignables/executableServiceAssignable.js");
 };
