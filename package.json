@@ -1,6 +1,6 @@
 {
     "name": "willcore.server",
-    "version": "1.0.4",
+    "version": "1.0.6",
     "description": "Lightweight and modular NodeJS server.",
     "main": "moduleContainer/willCoreModules.js",
     "_moduleAliases": {
