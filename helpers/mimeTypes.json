@@ -115,5 +115,6 @@
     ".xpm": "image/x-xpixmap",
     ".xsl": "application/xml",
     ".xwd": "image/x-xwindowdump",
+    ".ttf": "application/octet-stream",
     ".zip": "application/zip"
 }
