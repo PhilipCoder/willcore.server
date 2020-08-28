@@ -32,6 +32,7 @@ class serverHTTP extends assignable {
     }
 
     completed() {
+        this.parentProxy._assignable.serverType = "http";
         this.parentProxy._assignable.server = this.initServer(this.parentProxy._assignable);
     }
 }

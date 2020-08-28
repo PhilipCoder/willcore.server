@@ -1,6 +1,6 @@
 {
     "name": "willcore.server",
-    "version": "1.1.0",
+    "version": "1.1.4",
     "description": "Lightweight and modular NodeJS server.",
     "main": "moduleContainer/willCoreModules.js",
     "_moduleAliases": {
@@ -37,6 +37,7 @@
         "/loaders",
         "/models",
         "/moduleContainer",
-        "/proxies"
+        "/proxies",
+        "/intellisense"
       ]
 }

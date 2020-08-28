@@ -40,6 +40,7 @@ class serverHTTPS extends assignable {
     }
 
     completionResult() {
+        this.parentProxy._assignable.serverType = "https";
         this.parentProxy._assignable.server = this.initServer(this.parentProxy._assignable).then((server)=>{
             return this.parentProxy._assignable.server = server;
         });
