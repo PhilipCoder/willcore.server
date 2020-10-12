@@ -1,5 +1,5 @@
 <p align="center">
-<img src="res/WillCoreLogo.png"  />
+<img src="res/Server.png" height="300"  />
 <h1 align="center">WillCore.Server</h1>
 <h5 align="center">Build With Proxies - By Philip Schoeman</h5>
 <h5 align="center">License : MIT</h5>
@@ -55,6 +55,10 @@
     - [Action Interceptor Function Parameters](#action-interceptor-function-parameters)
     - [Using An Interceptor To Block Access To An Action](#using-an-interceptor-to-block-access-to-an-action)
     - [File Interceptor Function Parameters](#file-interceptor-function-parameters)
+   - [Browser Caching](#Browser-Caching)
+      - [ETag Caching](#ETag-Caching)
+      - [Max Age Caching](#max-age-caching)
+      - [Registering MIME Types](#registering-mime-types)
 
 ___
 
@@ -167,16 +171,16 @@ String Values | Number Values | Function Values
 
 ```javascript
 //Importing the willCore proxy
-const willCoreProxy = require("willcore.core");
+const willCoreFactory  = require("willcore.core");
 
 //Lets use a IIFE to use async functionality.
 (async () => {
     //New WillCore proxy instance.
-    const wCProxyInstance = willCoreProxy.new();
+    const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[__dirname] = 8580;
     //Configure for http
-    await coreProxy.testServer.http;
+    await willcore.testServer.http;
 })();
 ```
 
@@ -184,16 +188,16 @@ const willCoreProxy = require("willcore.core");
 
 ```javascript
 //Importing the willCore proxy
-const willCoreProxy = require("willcore.core");
+const willCoreFactory = require("willcore.core");
 
 //Lets use a IIFE to use async functionality.
 (async () => {
     //New WillCore proxy instance.
-    const wCProxyInstance = willCoreProxy.new();
+    const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[__dirname] = 8580;
     //Configure for http
-    await coreProxy.testServer.https;
+    await willcore.testServer.https;
 })();
 ```
 
@@ -224,20 +228,20 @@ In order to serve a file on a predefined URL, the file assignable can be used.
 
 ```javascript
 //Importing the willCore proxy
-const willCoreProxy = require("willcore.core");
+const willCoreFactory = require("willcore.core");
 
 //Lets use a IIFE to use async functionality.
 (async () => {
     //New WillCore proxy instance.
-    const wCProxyInstance = willCoreProxy.new();
+    const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[__dirname] = 8580;
     //Configure for http
-    await coreProxy.testServer.https;
+    await willcore.testServer.https;
     //Serve the home page
-     coreProxy.testServer.homePage.file["/"] = "/views/index.html";
+     willcore.testServer.homePage.file["/"] = "/views/index.html";
      //Serve the about page
-     coreProxy.testServer.homePage.file["/about"] = "/views/about.html";
+     willcore.testServer.homePage.file["/about"] = "/views/about.html";
 })();
 ```
 
@@ -266,18 +270,18 @@ Path to directory that should be served | _ | _
 
 ```javascript
 //Importing the willCore proxy
-const willCoreProxy = require("willcore.core");
+const willCoreFactory = require("willcore.core");
 
 //Lets use a IIFE to use async functionality.
 (async () => {
     //New WillCore proxy instance.
-    const wCProxyInstance = willCoreProxy.new();
+    const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[__dirname] = 8580;
     //Configure for http
-    await coreProxy.testServer.https;
+    await willcore.testServer.https;
     //Serve the javascript folder.
-     coreProxy.testServer.jsFiles.files = "/javascript";
+     willcore.testServer.jsFiles.files = "/javascript";
 })();
 ```
 
@@ -305,18 +309,18 @@ Path to service file | _ | _
 
 ```javascript
 //Importing the willCore proxy
-const willCoreProxy = require("willcore.core");
+const willCoreFactory = require("willcore.core");
 
 //Lets use a IIFE to use async functionality.
 (async () => {
     //New WillCore proxy instance.
-    const wCProxyInstance = willCoreProxy.new();
+    const willcore = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    coreProxy.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[__dirname] = 8580;
     //Configure for http
-    await coreProxy.testServer.https;
+    await willcore.testServer.https;
     //Define a service in a file /services/dataService
-     server.myService.service = "/services/dataService.js";
+     willcore.myService.service = "/services/dataService.js";
 })();
 ```
 
@@ -538,3 +542,114 @@ module.exports = (service, server, willcore) => {
 
 File interceptors differs form action interceptors in the sense that file interceptors will return the result of the interceptor function if the value of the interceptor function's result evaluate to truthy. When the function returns data, the MIME type (response.mimeType) and status code (response.statusCode) needs to be specified on the response.
 
+
+
+## Browser Caching
+
+WillCore.Server support ETag and max age browser caching by default for files served by the filesServerProxy or fileServerProxy. The caching can be turn on on via the eTagCache or the maxAgeCache assignables.
+
+#### ETag Caching
+
+ETag caching is implemented via a response and request HTTP header. When ETags are turned on, the browser will only download the file resource if it is changed on the server. For more information, read the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag).
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ❌    | None |  Empty     | filesServerProxy, fileServerProxy
+
+#### ETag Assignable values 
+
+String Values | Number Values | Function Values | Name Values
+------------- | ------------- | --------------- | ---------------
+_ | _ | _ | _
+
+#### Enabling ETag Cache On A File Service
+
+```javascript
+//Importing the willCore proxy
+const willCoreFactory = require("willcore.core");
+
+//Lets use a IIFE to use async functionality.
+(async () => {
+    //New WillCore proxy instance.
+    const willcore  = willCoreFactory.new();
+    //Creates a new server named "testServer" on port 8580
+    willcore.testServer.server[__dirname] = 8580;
+    //Configure for http
+    await willcore.testServer.https;
+    //Serve the javascript folder.
+    willcore.testServer.jsFiles.files = "/javascript";
+    //Enable ETag cache
+    willcore.testServer.jsFiles.eTagCache;
+})();
+```
+
+
+### Max Age Caching
+
+ETag caching is implemented via a response and request HTTP header. Max age caching returns a header with a file response to indicate how low the file should be cached in the browser's cache. For more information, read the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | none |  Empty     | filesServerProxy, fileServerProxy
+
+#### Max Age Assignable values 
+
+String Values | Number Values | Function Values | Name Values
+------------- | ------------- | --------------- | ---------------
+_ | _ | _ | Cache duration in seconds of the file.
+
+#### Enabling Max Age Caching On A File Service
+
+```javascript
+//Importing the willCore proxy
+const willCoreFactory = require("willcore.core");
+
+//Lets use a IIFE to use async functionality.
+(async () => {
+    //New WillCore proxy instance.
+    const willcore  = willCoreFactory.new();
+    //Creates a new server named "testServer" on port 8580
+    willcore.testServer.server[__dirname] = 8580;
+    //Configure for http
+    await willcore.testServer.https;
+    //Serve the javascript folder.
+    willcore.testServer.jsFiles.files = "/javascript";
+    //Enable max age caching, cache will expire after 3000 seconds
+    willcore.testServer.jsFiles["3000"].maxAgeCache;
+})();
+```
+
+## Registering MIME Types
+
+Only files that are in the list of allowed MIME types will be served. When a file is requested with an unregistered MIME type, a 404 error code will be returned. Additional MIME types can be registered in WillCore via the mimeType assignable.
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+   ✔    | 1 string |  Empty     | serverProxy
+
+#### MIMEType Assignable values 
+
+String Values | Number Values | Function Values | Name Values
+------------- | ------------- | --------------- | ---------------
+The MIME type to be registered.  | _ | _ | The file extension of the file type registered.
+
+#### Registering A MIME Type
+
+```javascript
+//Importing the willCore proxy
+const willCoreFactory = require("willcore.core");
+
+//Lets use a IIFE to use async functionality.
+(async () => {
+    //New WillCore proxy instance.
+    const willcore  = willCoreFactory.new();
+    //Creates a new server named "testServer" on port 8580
+    willcore.testServer.server[__dirname] = 8580;
+    //Configure for http
+    await willcore.testServer.https;
+    //Serve the javascript folder.
+    willcore.testServer.jsFiles.files = "/javascript";
+    //Registering the MIME type of SVG images
+    coreProxy.testServer[".svg"].mimeType = "image/svg+xml";
+})();
+```

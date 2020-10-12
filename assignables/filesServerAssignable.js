@@ -2,7 +2,7 @@ const assignable = require("willcore.core/assignable/assignable");
 const filesServerProxy = require("../proxies/filesServer/filesServerProxy.js");
 const serverProxy = require("../proxies/server/serverProxy.js");
 const fileHelper = require("../helpers/fileHelper.js");
-const mimeTypes = require("../helpers/mimeTypes.json");
+const mimeTypes = require("../helpers/mimeContainer.js");
 const file = require("path");
 
 class filesServerAssignable extends assignable {
@@ -36,7 +36,7 @@ class filesServerAssignable extends assignable {
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](filePath, request, response);
             if (interceptorResult) {
-                return { data: interceptorResult, mime: response.mimeType, status: response.statusCode };
+                return { data: interceptorResult, mime: mimeType, status: response.statusCode };
             }
         }
 

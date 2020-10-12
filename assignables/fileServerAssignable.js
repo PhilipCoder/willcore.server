@@ -2,7 +2,7 @@ const assignable = require("willcore.core/assignable/assignable");
 const fileServerProxy = require("../proxies/fileServer/fileServerProxy.js");
 const serverProxy = require("../proxies/server/serverProxy.js");
 const fileHelper = require("../helpers/fileHelper.js");
-const mimeTypes = require("../helpers/mimeTypes.json");
+const mimeTypes = require("../helpers/mimeContainer.js");
 const file = require("path");
 
 class fileServerAssignable extends assignable {
@@ -29,7 +29,7 @@ class fileServerAssignable extends assignable {
     /**
     * @param {import('../models/requestDetails.js').requestInstance} requestInfo 
     */
-    async onRequest(requestInfo, request, response) { //Model to be created here and action called
+    async onRequest(requestInfo, request, response) { 
         let fileExtention = file.extname(this.fileURL);
         let mimeType = mimeTypes[fileExtention];
         if (!mimeType) {
@@ -40,7 +40,7 @@ class fileServerAssignable extends assignable {
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](filePath, request, response);
             if (interceptorResult) {
-                return { data: interceptorResult, mime: model.mimeType, status: model.statusCode };
+                return { data: interceptorResult, mime: mimeType, status: response.statusCode };
             }
         }
 
@@ -51,7 +51,7 @@ class fileServerAssignable extends assignable {
         for (let afterIndex = 0; afterIndex < this.interceptors.after.length; afterIndex++) {
             let interceptorResult = await this.interceptors.after[afterIndex](data, request,response);
             if (!interceptorResult) {
-                return { data: interceptorResult, mime:mimeType, status: model.statusCode };
+                return { data: interceptorResult, mime:mimeType, status: response.statusCode };
             }
         }
         return { data:data, mime: mimeType, status: 200 };

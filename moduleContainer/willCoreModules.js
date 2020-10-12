@@ -11,4 +11,7 @@ module.exports = (willCoreModuleInstance) => {
        willCoreModuleInstance.http = () => require("../assignables/serverHTTP.js");
        willCoreModuleInstance.https = () => require("../assignables/serverHTTPS.js");
        willCoreModuleInstance.executableService = () => require("../assignables/executableServiceAssignable.js");
+       willCoreModuleInstance.eTagCache = () => require("../assignables/etagCacheAssignable.js");
+       willCoreModuleInstance.maxAgeCache = () => require("../assignables/maxAgeCacheAssignable.js");
+       willCoreModuleInstance.mimeType = () => require("../assignables/mimeTypeAssignable.js");
 };
