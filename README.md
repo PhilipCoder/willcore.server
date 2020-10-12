@@ -586,7 +586,7 @@ const willCoreFactory = require("willcore.core");
 
 ### Max Age Caching
 
-ETag caching is implemented via a response and request HTTP header. Max age caching returns a header with a file response to indicate how low the file should be cached in the browser's cache. For more information, read the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
+Max Age caching is implemented via a response and request HTTP header. Max age caching returns a header with a file response to indicate how low the file should be cached in the browser's cache. For more information, read the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
