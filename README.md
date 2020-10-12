@@ -58,7 +58,7 @@
    - [Browser Caching](#Browser-Caching)
       - [ETag Caching](#ETag-Caching)
       - [Max Age Caching](#max-age-caching)
-      - [Registering MIME Types](#registering-mime-types)
+   - [Registering MIME Types](#registering-mime-types)
 
 ___
 
