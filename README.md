@@ -531,7 +531,7 @@ Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
    ❌    | 1 object          |  Empty     | actionRESTProxy, actionRPCProxy
 
-#### Using Type Validations
+#### Using Value Validations
 
 ```javascript
 module.exports = (service, server, willcore) => {
