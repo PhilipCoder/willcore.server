@@ -501,7 +501,7 @@ The type validation is assigned to the action proxy and should be an object wher
 
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
-❌    | 1 object |  Empty     | actionRESTProxy, actionRPCProxy
+   ❌    | 1 object          |  Empty     | actionRESTProxy, actionRPCProxy
 
 #### Using Type Validations
 
@@ -526,9 +526,10 @@ The value validation is assigned to the action proxy and should be an object whe
 
 #### ValueValidation assignable__
 
+
 Has Name | Assignable values | Assignable result | Can assign to
 -------- | ----------------- | ----------------- | -------------
-❌    | 1 object |  Empty     | actionRESTProxy, actionRPCProxy
+   ❌    | 1 object          |  Empty     | actionRESTProxy, actionRPCProxy
 
 #### Using Type Validations
 
