@@ -44,6 +44,10 @@
   - [__ActionREST assignable__](#actionrest-assignable)
     - [Action Assignable values](#action-assignable-values-1)
     - [Defining REST actions :](#defining-rest-actions)
+   - [__Model Validations__](#model_validations)
+       - [__Type Validation__](#type-validation)
+       - [__Value Validation__](#value-validation)
+       - [__Combining Validations__](#combining_validations)
   - [__Action Aliases__](#action-aliases)
   - [__Action assignable__](#action-assignable-1)
     - [Action Assignable values](#action-assignable-values-2)
@@ -477,6 +481,86 @@ module.exports = (service, server, willcore) => {
           //Code to go here
     };
     service.deletetUser.data.alias;
+};
+```
+
+### __Model Validations__
+
+To validate that the correct data is passed to an action, model validation can be used. There are two types of model validations, type validation and value validation.
+
+#### __Type Validation__
+
+Type validations can be used to validate that the parameter is present and of the correct type. The type is the JavaScript type and can be one of the following:
+* boolean
+* number
+* string
+
+The type validation is assigned to the action proxy and should be an object where the name of the property on the validation object is the name of the parameter and the value the type of the parameter. When the validation fails a 422 error code will be returned.
+
+#### __TypeValidation assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+    ❌    | 1 object |  Empty     | actionRESTProxy, actionRPCProxy
+
+#### Using Type Validations
+
+```javascript
+module.exports = (service, server, willcore) => {
+   service.validation.action.get = async (model) => {
+    };
+    //Validates the request parameters.
+    service.validation.typeValidation = {
+        email: "string",
+        name: "string",
+        age: "number"
+    };
+};
+```
+
+#### __Value Validation__
+
+Value validations can be used to validate that parameters contain the correct value. For example to make sure that an email is in the correct format.
+
+The value validation is assigned to the action proxy and should be an object where the name of the property on the validation object is the name of the parameter and the value is a function that takes the model as a parameter. When the function returns null, the validation for the parameter will fail. When the validation fails a 422 error code will be returned.
+
+#### ValueValidation assignable__
+
+Has Name | Assignable values | Assignable result | Can assign to
+-------- | ----------------- | ----------------- | -------------
+    ❌    | 1 object |  Empty     | actionRESTProxy, actionRPCProxy
+
+#### Using Type Validations
+
+```javascript
+module.exports = (service, server, willcore) => {
+   service.validation.action.get = async (model) => {
+    };
+    //Validates the request parameters.
+    service.validation.valueValidation = {
+        email: (model) => model.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
+        name: (model) => model.name.length > 4
+    };
+};
+```
+
+#### __Combining Validations__
+
+Type and value validations can be used together to validate the request parameters. The type validation will execute first and only when all type validations pass, the value validations will execute.
+
+#### Combining Type And Value Validations
+
+```javascript
+service.validation.action.get = async (model) => {
+};
+service.validation.typeValidation = {
+   email: "string",
+   name: "string",
+   age: "number"
+};
+service.validation.valueValidation = {
+   email: (model) => model.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
+   name: (model) => model.name.length > 4
 };
 ```
 
