@@ -12,48 +12,48 @@
 - [Getting started](#getting-started)
     - [Installing WillCore.Server](#installing-willcoreserver)
 - [Creating a server](#creating-a-server)
-  - [__Server assignable__](#server-assignable)
+  - [Server assignable](#server-assignable)
     - [Server Assignable values](#server-assignable-values)
-  - [__HTTP assignable__](#http-assignable)
+  - [HTTP assignable](#http-assignable)
     - [HTTP Assignable values](#http-assignable-values)
-  - [__HTTPS assignable__](#https-assignable)
+  - [HTTPS assignable](#https-assignable)
     - [HTTPS Assignable values](#https-assignable-values)
     - [Creating a HTTP server](#creating-a-http-server)
     - [Creating a HTTPS server](#creating-a-https-server)
 - [Serving a single file](#serving-a-single-file)
-  - [__File assignable__](#file-assignable)
+  - [File assignable](#file-assignable)
     - [Assignable values](#assignable-values)
     - [For instance to display a file **"/views/index.html"** home page on **http://localhost:8580**:](#for-instance-to-display-a-file-%22viewsindexhtml%22-home-page-on-httplocalhost8580)
 - [Serving files in a directory](#serving-files-in-a-directory)
-  - [__Files assignable__](#files-assignable)
+  - [Files assignable](#files-assignable)
     - [Assignable values](#assignable-values-1)
     - [Serving files in a folder](#serving-files-in-a-folder)
-  - [__Services__](#services)
-  - [__Service assignable__](#service-assignable)
+  - [Services](#services)
+  - [Service assignable](#service-assignable)
     - [Assignable values](#assignable-values-2)
     - [Defining A Service](#defining-a-service)
     - [The Service Module](#the-service-module)
     - [Example Of A Service Module](#example-of-a-service-module)
-  - [__Actions__](#actions)
+  - [Actions](#actions)
     - [Supported HTTP Verbs](#supported-http-verbs)
-  - [__RPC Actions__](#rpc-actions)
-  - [__Action assignable__](#action-assignable)
+  - [RPC Actions](#rpc-actions)
+  - [Action assignable](#action-assignable)
     - [Action Assignable values](#action-assignable-values)
     - [Defining actions :](#defining-actions)
-  - [__REST Actions__](#rest-actions)
-  - [__ActionREST assignable__](#actionrest-assignable)
+  - [REST Actions](#rest-actions)
+  - [ActionREST assignable](#actionrest-assignable)
     - [Action Assignable values](#action-assignable-values-1)
     - [Defining REST actions :](#defining-rest-actions)
-   - [__Model Validations__](#model_validations)
-       - [__Type Validation__](#type-validation)
-       - [__Value Validation__](#value-validation)
-       - [__Combining Validations__](#combining_validations)
-  - [__Action Aliases__](#action-aliases)
-  - [__Action assignable__](#action-assignable-1)
+   - [Model Validations](#model_validations)
+       - [Type Validation](#type-validation)
+       - [Value Validation](#value-validation)
+       - [Combining Validations](#combining_validations)
+  - [Action Aliases](#action-aliases)
+  - [Action assignable](#action-assignable-1)
     - [Action Assignable values](#action-assignable-values-2)
     - [Using Action Aliases](#using-action-aliases)
-  - [__Request Interceptors__](#request-interceptors)
-  - [__Interceptor assignable__](#interceptor-assignable)
+  - [Request Interceptors](#request-interceptors)
+  - [Interceptor assignable](#interceptor-assignable)
     - [Interceptor Assignable values](#interceptor-assignable-values)
   - [Action Interceptors](#action-interceptors)
     - [Action Interceptor Function Parameters](#action-interceptor-function-parameters)
@@ -182,7 +182,7 @@ const willCoreFactory  = require("willcore.core");
     //New WillCore proxy instance.
     const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.http;
 })();
@@ -199,7 +199,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
 })();
@@ -239,7 +239,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Serve the home page
@@ -281,7 +281,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Serve the javascript folder.
@@ -320,7 +320,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore = willCoreProxy.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Define a service in a file /services/dataService
@@ -657,7 +657,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore  = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Serve the javascript folder.
@@ -693,7 +693,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore  = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Serve the javascript folder.
@@ -728,7 +728,7 @@ const willCoreFactory = require("willcore.core");
     //New WillCore proxy instance.
     const willcore  = willCoreFactory.new();
     //Creates a new server named "testServer" on port 8580
-    willcore.testServer.server[__dirname] = 8580;
+    willcore.testServer.server[dirname] = 8580;
     //Configure for http
     await willcore.testServer.https;
     //Serve the javascript folder.
