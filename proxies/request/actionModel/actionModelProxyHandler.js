@@ -8,6 +8,7 @@ class actionModelProxyHandler extends baseProxyHandler {
 
     this.getTraps.unshift(this.getStateValues);
     this.getTraps.unshift(this.getRecordingFunction);
+    this.getTraps.push(this.getTarget);
     this.setTraps.unshift(this.assignValue);
   }
 
@@ -32,6 +33,13 @@ class actionModelProxyHandler extends baseProxyHandler {
   getStateValues(target, property) {
     if (property === "stateValues") {
       return { status: true, value: this.changedStateValues };
+    }
+    return { status: false };
+  }
+
+  getTarget(target, property) {
+    if (!this.isRecording) {
+      return { status: true, value: target[property] };
     }
     return { status: false };
   }

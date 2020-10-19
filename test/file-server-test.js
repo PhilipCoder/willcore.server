@@ -46,19 +46,19 @@ describe('file-server-test', function () {
         assert(fileResult.status === 404, "File service returned incorrect status code.");
         assert(fileResult.data , "File service did not return a file.");
     });
-    it('test-etag-cache', async function () {
-        let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server[__dirname] = 8080;
-        coreProxy.testServer.http;
-        coreProxy.testServer[".svg"].mimeType = "image/svg+xml";
-        coreProxy.testServer.javascript.files = "/mocks";
-        coreProxy.testServer.javascript.eTagCache;
-    });
-    it('test-expire-cache', async function () {
-        let coreProxy = willCoreProxy.new();
-        coreProxy.testServer.server[__dirname] = 8080;
-        coreProxy.testServer.http;
-        coreProxy.testServer.javascript.files = "/mocks";
-        coreProxy.testServer.javascript["3000"].maxAgeCache ;
-    });
+    // it('test-etag-cache', async function () {
+    //     let coreProxy = willCoreProxy.new();
+    //     coreProxy.testServer.server[__dirname] = 8080;
+    //     coreProxy.testServer.http;
+    //     coreProxy.testServer[".svg"].mimeType = "image/svg+xml";
+    //     coreProxy.testServer.javascript.files = "/mocks";
+    //     coreProxy.testServer.javascript.eTagCache;
+    // });
+    // it('test-expire-cache', async function () {
+    //     let coreProxy = willCoreProxy.new();
+    //     coreProxy.testServer.server[__dirname] = 8080;
+    //     coreProxy.testServer.http;
+    //     coreProxy.testServer.javascript.files = "/mocks";
+    //     coreProxy.testServer.javascript["3000"].maxAgeCache ;
+    // });
 });

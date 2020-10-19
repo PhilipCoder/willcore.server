@@ -23,6 +23,58 @@ describe('http-end-to-end-test', function () {
         assert(result.length === 12, "Result should have 12 items.");
         coreProxy.testServer.stop();
     });
+    it('getDataRPC-get-validation-empty-test',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server[__dirname] = 8580;
+        coreProxy.testServer.http;
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
+
+        let result = await axios.get('http://localhost:8580/demoService/noValidation?message=helloworld');
+        let message =  result.data.result;
+        assert(message === "helloworld", "Incorrect value returned");
+        assert(result.status === 200, "Invalid status code");
+        coreProxy.testServer.stop();
+    });
+    it('getDataRPC-get-validation-fail-test',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server[__dirname] = 8580;
+        coreProxy.testServer.http;
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
+        let errorResponse = null;
+        let result = await axios.get('http://localhost:8580/demoService/validation?message=helloworld').catch((e)=>{
+            errorResponse = e.response;
+        });
+        let message =  errorResponse.data.error;
+        assert(errorResponse.data.error === "Validation failed for model. Fields: email,name,age.", "Incorrect value returned");
+        assert(errorResponse.status === 422, "Invalid status code");
+        coreProxy.testServer.stop();
+    });
+    it('getDataRPC-get-validation-fail-email-test',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server[__dirname] = 8580;
+        coreProxy.testServer.http;
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
+        let errorResponse = null;
+        let result = await axios.get('http://localhost:8580/demoService/validation?email=lol&name=JohnXo&age=1').catch((e)=>{
+            errorResponse = e.response;
+        });
+        let message =  errorResponse.data.error;
+        assert(errorResponse.data.error === "Validation failed for model. Fields: email.", "Incorrect value returned");
+        assert(errorResponse.status === 422, "Invalid status code");
+        coreProxy.testServer.stop();
+    });
+    it('getDataRPC-get-validation-pass-test',async function () {
+        coreProxy = willCoreProxy.new();
+        coreProxy.testServer.server[__dirname] = 8580;
+        coreProxy.testServer.http;
+        coreProxy.testServer.demoService.service = "/mocks/getdataRPCAction.js";
+        let errorResponse = null;
+        let result = await axios.get('http://localhost:8580/demoService/validation?email=lol@gmail.com&name=JohnXo&age=1');
+        let message =  result.data.result;
+        assert(message === "lol@gmail.com", "Incorrect value returned");
+        assert(result.status === 200, "Invalid status code");
+        coreProxy.testServer.stop();
+    });
     it('getDataRPC-post-test',async function () {
         coreProxy = willCoreProxy.new();
         coreProxy.testServer.server[__dirname] = 8580;

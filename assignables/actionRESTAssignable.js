@@ -2,6 +2,7 @@ const requestAssignable = require("./requestAssignable.js");
 const actionRESTProxy = require("../proxies/request/actionREST/actionRESTProxy.js");
 const actionModel = require("../proxies/request/actionModel/actionModelProxy.js");
 const httpVerbs = require("../models/httpVerbs.js");
+const validationHelper = require("../helpers/validationHelper.js");
 
 class actionRESTAssignable extends requestAssignable {
     constructor() {
@@ -31,6 +32,10 @@ class actionRESTAssignable extends requestAssignable {
         let model = actionModel.new(requestInfo,this.parentProxy);
         model._request = request;
         model._response = response;
+        let validationResult = validationHelper(model,this.parentProxy[this.propertyName].validation,this.parentProxy[this.propertyName].typeValidation);
+        if (validationResult){
+            return { data: JSON.stringify({error:validationResult}), mime: "application/json", status: 422 };
+        }
         model.record();
         for (let beforeIndex = 0; beforeIndex < this.interceptors.before.length; beforeIndex++) {
             let interceptorResult = await this.interceptors.before[beforeIndex](model, request,response);
